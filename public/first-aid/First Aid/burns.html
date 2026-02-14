@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Step-by-step burns first aid instructions with visual and audio guidance">
+  <title>Burns First Aid - Step by Step Guide</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="page">
+  <a href="../index.html" class="back-btn"></a>
+
+  <div class="header-bar">
+    <div class="header-title">Burns – First Aid Steps</div>
+  </div>
+
+  <div class="card">
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step-circle active">1</div>
+      <div class="step-line"></div>
+      <div class="step-circle">2</div>
+      <div class="step-line"></div>
+      <div class="step-circle">3</div>
+      <div class="step-line"></div>
+      <div class="step-circle">4</div>
+    </div>
+
+    <br>
+
+    <div class="slide active" data-audio="../assets/audio/burns_audio1.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/burn1.png" alt="Cool the burn">
+        </div>
+        <div class="text">
+          <p>Cool the burn immediately under cool running water for 20 minutes. This helps stop the burning process and reduces pain and swelling. Do not use ice.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/burns_audio2.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/burn2.png" alt="Remove tight items">
+        </div>
+        <div class="text">
+          <p>Remove rings, watches, belts, or tight clothing near the burned area before swelling begins. Do not remove clothing stuck to the burn.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/burns_audio3.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/burn3.png" alt="Cover the burn">
+        </div>
+        <div class="text">
+          <p>Cover the burn loosely with a clean, non-stick cloth or sterile dressing. This protects the area from infection and reduces pain.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/burns_audio4.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/burn4.png" alt="Seek medical help">
+        </div>
+        <div class="text">
+          <p>Seek medical help immediately if the burn is deep, blistered, electrical, chemical, or larger than a palm. Call emergency services for severe burns.</p>
+        </div>
+      </div>
+    </div>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <div class="controls">
+      <button class="prev-btn secondary" onclick="prevSlide()">Previous</button>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/burns.js"></script>
+</body>
+</html>

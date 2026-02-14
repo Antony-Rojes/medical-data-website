@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Step-by-step heart attack first aid instructions with emergency guidance">
+  <title>Heart Attack First Aid - Step by Step Guide</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="page">
+  <a href="../index.html" class="back-btn"></a>
+
+  <div class="header-bar">
+    <div class="header-title">Heart Attack – First Aid Steps</div>
+  </div>
+
+  <div class="card">
+
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step-circle active">1</div>
+      <div class="step-line"></div>
+      <div class="step-circle">2</div>
+      <div class="step-line"></div>
+      <div class="step-circle">3</div>
+      <div class="step-line"></div>
+      <div class="step-circle">4</div>
+      <div class="step-line"></div>
+      <div class="step-circle">5</div>
+      <div class="step-line"></div>
+      <div class="step-circle">6</div>
+    </div>
+
+    <br>
+
+    <!-- Step 1 -->
+    <div class="slide active" data-audio="../assets/audio/heartattack_audio1.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/heartattack1.png" alt="Heart attack symptoms">
+        </div>
+        <div class="text">
+          <p>
+            Severe chest pain or pressure may be a heart attack. The person may look pale, sweaty, or short of breath. Take it seriously and act fast.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="slide" data-audio="../assets/audio/heartattack_audio2.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/heartattack2.png" alt="Call emergency services">
+        </div>
+        <div class="text">
+          <p>
+            Call emergency medical services immediately. Stay calm, explain that the person has chest pain, and follow the operator’s instructions. Do not leave the person alone.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="slide" data-audio="../assets/audio/heartattack_audio3.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/heartattack3.png" alt="Help person sit upright">
+        </div>
+        <div class="text">
+          <p>
+            Help the person sit upright comfortably and support their back. Keep them calm and breathing slowly. Do not let them move their arms or legs. Wait for medical help to arrive.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="slide" data-audio="../assets/audio/heartattack_audio4.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/heartattack4.png" alt="Loosen tight clothing">
+        </div>
+        <div class="text">
+          <p>
+            Loosen any tight clothing around the person’s neck, chest, or waist to make breathing easier. Keep them sitting upright and calm. Do not let them move their arms or legs. Stay with them and wait for emergency help.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="slide" data-audio="../assets/audio/heartattack_audio5.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/heartattack5.png" alt="Give aspirin if safe">
+        </div>
+        <div class="text">
+          <p>
+            (Optional) If available, aspirin may be given. First make sure the person is not allergic to aspirin, is conscious, and is able to swallow safely. Give only if these conditions are met and emergency help is on the way.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="slide" data-audio="../assets/audio/heartattack_audio6.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/heartattack6.png" alt="Monitor and wait for ambulance">
+        </div>
+        <div class="text">
+          <p>
+            Keep the person calm and seated in a comfortable upright position. Stay with them, watch their breathing, and do not let them walk or move around. Wait for the ambulance to arrive.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <div class="controls">
+      <button class="prev-btn secondary" onclick="prevSlide()">Previous</button>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/heart_attack.js"></script>
+
+</body>
+</html>

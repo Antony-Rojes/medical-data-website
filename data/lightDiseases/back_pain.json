@@ -1,0 +1,121 @@
+{
+  "disease_id": "back_pain",
+  "name": "Back Pain",
+  "category": "light",
+
+  "description": "Back pain is discomfort or stiffness in the upper, middle, or lower back. It is commonly caused by muscle strain, poor posture, prolonged sitting, or minor injury.",
+
+  "severity_levels": {
+    "mild": {
+      "definition": "Mild back pain with short duration and no danger signs",
+      "criteria": {
+        "pain_level": "mild",
+        "duration_days": "<3",
+        "other_symptoms": "none"
+      }
+    },
+
+    "moderate": {
+      "definition": "Persistent back pain affecting daily activities",
+      "criteria": {
+        "pain_level": "moderate",
+        "duration_days": "3-7"
+      }
+    },
+
+    "high_risk": {
+      "definition": "Severe back pain or back pain with neurological symptoms",
+      "criteria": {
+        "pain_level": "severe",
+        "duration_days": ">7",
+        "other_symptoms": "numbness, weakness in legs, loss of bladder control"
+      }
+    }
+  },
+
+  "care_guidelines": {
+    "self_care": [
+      "Apply warm compress to the affected area",
+      "Maintain proper posture while sitting and standing",
+      "Avoid heavy lifting or sudden twisting movements",
+      "Perform gentle stretching exercises",
+      "Ensure adequate rest but avoid prolonged bed rest"
+    ],
+
+    "medicines": [
+      {
+        "name": "Paracetamol 500mg Tablet",
+        "category": "OTC",
+        "used_for": "Relief of mild to moderate back pain",
+        "avoid_if": [
+          "Severe liver disease",
+          "Known paracetamol allergy"
+        ],
+        "dose": "Adults: 500–1000 mg every 6 hours (Maximum 4000 mg in 24 hours)"
+      },
+      {
+        "name": "Ibuprofen 400mg Tablet",
+        "category": "OTC",
+        "used_for": "Back pain with inflammation",
+        "avoid_if": [
+          "Stomach ulcers",
+          "Kidney disease",
+          "NSAID allergy"
+        ],
+        "dose": "Adults: 400 mg every 6–8 hours with food (Maximum 1200 mg in 24 hours OTC)"
+      }
+    ]
+  },
+
+  "doctor_consultation": {
+    "immediate": [
+      "loss of bladder control",
+      "severe leg weakness",
+      "numbness in groin area",
+      "severe trauma"
+    ],
+
+    "urgent": [
+      "pain lasting more than 7 days",
+      "worsening pain despite medication",
+      "pain spreading down the leg",
+      "unexplained weight loss"
+    ],
+
+    "message": "Seek medical attention if back pain is severe, persistent, or associated with numbness, weakness, or loss of bladder control."
+  },
+
+  "assessment_questions": [
+    {
+      "id": "pain_level",
+      "question": "How severe is your back pain?",
+      "type": "single_select",
+      "options": [
+        "Mild",
+        "Moderate",
+        "Severe"
+      ]
+    },
+    {
+      "id": "duration_days",
+      "question": "How many days have you had this pain?",
+      "type": "single_select",
+      "options": ["<3", "3-7", ">7"]
+    },
+    {
+      "id": "other_symptoms",
+      "question": "Select any additional symptoms:",
+      "type": "multi_select",
+      "options": [
+        "Numbness",
+        "Weakness in legs",
+        "Pain radiating to legs",
+        "Loss of bladder control",
+        "Severe trauma",
+        "None of these"
+      ]
+    }
+  ],
+
+  "disclaimer": "This is educational information only and not a substitute for professional medical advice. Seek urgent care for severe or worsening back pain."
+}

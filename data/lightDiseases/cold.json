@@ -1,0 +1,108 @@
+{
+  "disease_id": "cold",
+  "name": "Common Cold",
+  "category": "light",
+
+  "description": "The common cold is a viral infection affecting the nose and throat. It usually causes runny nose, sneezing, congestion, and mild discomfort, and typically resolves within 7–10 days.",
+
+  "severity_levels": {
+    "mild": {
+      "definition": "Mild cold symptoms with short duration",
+      "criteria": {
+        "duration_days": "<3",
+        "other_symptoms": "none"
+      }
+    },
+
+    "moderate": {
+      "definition": "Cold symptoms lasting several days requiring monitoring",
+      "criteria": {
+        "duration_days": "3-7"
+      }
+    },
+
+    "high_risk": {
+      "definition": "Cold symptoms with respiratory or systemic danger signs",
+      "criteria": {
+        "duration_days": ">7",
+        "other_symptoms": "breathing difficulty, chest pain, severe weakness"
+      }
+    }
+  },
+
+  "care_guidelines": {
+    "self_care": [
+      "Rest adequately to allow recovery",
+      "Drink warm fluids like soups and herbal teas",
+      "Use steam inhalation to relieve nasal congestion",
+      "Gargle with warm salt water for throat irritation",
+      "Maintain good hygiene to prevent spread"
+    ],
+
+    "medicines": [
+      {
+        "name": "Cetirizine 10mg Tablet",
+        "category": "OTC",
+        "used_for": "Relief of sneezing and runny nose",
+        "avoid_if": [
+          "Severe kidney disease",
+          "Known antihistamine allergy"
+        ],
+        "dose": "Adults: 10 mg once daily"
+      },
+      {
+        "name": "Pseudoephedrine 30mg Tablet",
+        "category": "OTC",
+        "used_for": "Relief of nasal congestion",
+        "avoid_if": [
+          "Uncontrolled high blood pressure",
+          "Heart disease"
+        ],
+        "dose": "Adults: 30–60 mg every 4–6 hours (Max 240 mg/day)"
+      }
+    ]
+  },
+
+  "doctor_consultation": {
+    "immediate": [
+      "breathing difficulty",
+      "chest pain",
+      "blue lips or face",
+      "severe weakness"
+    ],
+
+    "urgent": [
+      "cold lasting more than 10 days",
+      "high fever with cold",
+      "worsening symptoms",
+      "ear pain or severe sinus pain"
+    ],
+
+    "message": "Seek medical attention if cold symptoms persist beyond 10 days or are associated with breathing difficulty, chest pain, or severe weakness."
+  },
+
+  "assessment_questions": [
+    {
+      "id": "duration_days",
+      "question": "How many days have you had these cold symptoms?",
+      "type": "single_select",
+      "options": ["<3", "3-7", ">7"]
+    },
+    {
+      "id": "other_symptoms",
+      "question": "Select any additional symptoms:",
+      "type": "multi_select",
+      "options": [
+        "Fever",
+        "Sinus pain",
+        "Ear pain",
+        "Breathing difficulty",
+        "Chest pain",
+        "Severe weakness",
+        "None of these"
+      ]
+    }
+  ],
+
+  "disclaimer": "This is educational information only and not a substitute for professional medical advice. Seek medical care for severe or worsening cold symptoms."
+}

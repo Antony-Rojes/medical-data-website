@@ -1,0 +1,121 @@
+{
+  "disease_id": "stomach_pain",
+  "name": "Stomach Pain",
+  "category": "light",
+
+  "description": "Stomach pain refers to discomfort in the abdominal area. It may be caused by indigestion, gas, mild infection, or dietary issues. Most mild cases improve with rest and proper hydration.",
+
+  "severity_levels": {
+    "mild": {
+      "definition": "Mild abdominal discomfort with short duration",
+      "criteria": {
+        "pain_level": "mild",
+        "duration_days": "<3",
+        "other_symptoms": "none"
+      }
+    },
+
+    "moderate": {
+      "definition": "Persistent abdominal pain requiring monitoring",
+      "criteria": {
+        "pain_level": "moderate",
+        "duration_days": "3-7"
+      }
+    },
+
+    "high_risk": {
+      "definition": "Severe abdominal pain or pain with danger signs",
+      "criteria": {
+        "pain_level": "severe",
+        "duration_days": ">7",
+        "other_symptoms": "persistent vomiting, black stools, severe dehydration"
+      }
+    }
+  },
+
+  "care_guidelines": {
+    "self_care": [
+      "Rest and avoid heavy meals",
+      "Drink plenty of fluids including ORS if needed",
+      "Avoid spicy or oily foods",
+      "Apply a warm compress to the abdomen",
+      "Eat light and easily digestible food"
+    ],
+
+    "medicines": [
+      {
+        "name": "Dicycloverine 10mg Tablet",
+        "category": "OTC",
+        "used_for": "Relief of abdominal cramps",
+        "avoid_if": [
+          "Glaucoma",
+          "Severe ulcerative colitis"
+        ],
+        "dose": "Adults: 10–20 mg up to 4 times daily as directed"
+      },
+      {
+        "name": "Omeprazole 20mg Capsule",
+        "category": "OTC",
+        "used_for": "Stomach pain due to acidity or gastritis",
+        "avoid_if": [
+          "Allergy to proton pump inhibitors",
+          "Severe liver disease"
+        ],
+        "dose": "Adults: 20 mg once daily before meals"
+      }
+    ]
+  },
+
+  "doctor_consultation": {
+    "immediate": [
+      "black stools",
+      "blood in vomit",
+      "severe dehydration",
+      "persistent vomiting",
+      "severe abdominal tenderness"
+    ],
+
+    "urgent": [
+      "pain lasting more than 7 days",
+      "high fever with abdominal pain",
+      "worsening symptoms",
+      "unintentional weight loss"
+    ],
+
+    "message": "Seek medical attention if stomach pain is severe, persistent, or associated with black stools, vomiting blood, or severe dehydration."
+  },
+
+  "assessment_questions": [
+    {
+      "id": "pain_level",
+      "question": "How severe is your stomach pain?",
+      "type": "single_select",
+      "options": [
+        "Mild",
+        "Moderate",
+        "Severe"
+      ]
+    },
+    {
+      "id": "duration_days",
+      "question": "How many days have you had this pain?",
+      "type": "single_select",
+      "options": ["<3", "3-7", ">7"]
+    },
+    {
+      "id": "other_symptoms",
+      "question": "Select any additional symptoms:",
+      "type": "multi_select",
+      "options": [
+        "Nausea",
+        "Persistent vomiting",
+        "Black stools",
+        "Severe dehydration",
+        "Severe abdominal tenderness",
+        "None of these"
+      ]
+    }
+  ],
+
+  "disclaimer": "This is educational information only and not a substitute for professional medical advice. Seek urgent care for severe or worsening abdominal pain."
+}

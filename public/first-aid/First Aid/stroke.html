@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Step-by-step stroke first aid instructions with FAST test and emergency guidance">
+  <title>Stroke First Aid - Step by Step Guide</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="page">
+  <a href="../index.html" class="back-btn"></a>
+
+  <div class="header-bar">
+    <div class="header-title">Stroke – First Aid Steps</div>
+  </div>
+
+  <div class="card">
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step-circle active">1</div>
+      <div class="step-line"></div>
+      <div class="step-circle">2</div>
+      <div class="step-line"></div>
+      <div class="step-circle">3</div>
+      <div class="step-line"></div>
+      <div class="step-circle">4</div>
+      <div class="step-line"></div>
+      <div class="step-circle">5</div>
+      <div class="step-line"></div>
+      <div class="step-circle">6</div>
+      <div class="step-line"></div>
+      <div class="step-circle">7</div>
+    </div>
+
+    <br>
+
+    <div class="slide active" data-audio="../assets/audio/stroke_audio1.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/stroke1.png" alt="Face drooping">
+        </div>
+        <div class="text">
+          <p>Ask the person to smile. Observe whether one side of the face droops or appears uneven. Facial drooping is an early warning sign of stroke.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/stroke_audio2.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/stroke2.png" alt="Arm weakness">
+        </div>
+        <div class="text">
+          <p>Ask the person to raise both arms. Watch closely to see if one arm drifts downward or cannot be lifted fully.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/stroke_audio3.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/stroke3.png" alt="Speech difficulty">
+        </div>
+        <div class="text">
+          <p>Ask the person to repeat a simple sentence such as “The sky is blue.” Listen for slurred speech, incorrect words, or inability to speak.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/stroke_audio4.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/stroke4.png" alt="Severe headache">
+        </div>
+        <div class="text">
+          <p>Ask if the person is experiencing a sudden, severe headache. A headache described as the worst of their life can indicate a stroke.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/stroke_audio5.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/stroke5.png" alt="Nausea or vomiting">
+        </div>
+        <div class="text">
+          <p>Check for sudden nausea or vomiting without an obvious cause. This can occur alongside other stroke symptoms.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/stroke_audio6.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/stroke6.png" alt="Dizziness or balance loss">
+        </div>
+        <div class="text">
+          <p>Observe for sudden dizziness, loss of balance, or difficulty walking. These symptoms may appear suddenly during a stroke.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/stroke_audio7.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/stroke7.png" alt="Call emergency services">
+        </div>
+        <div class="text">
+          <p>If any one of these symptoms is present, call emergency services immediately. Time is critical. Every minute of delay can increase brain damage.</p>
+        </div>
+      </div>
+    </div>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <div class="controls">
+      <button class="prev-btn secondary" onclick="prevSlide()">Previous</button>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/stroke.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="First Aid Advisor - Quick access to life-saving emergency instructions">
+  <title>First Aid Advisor - Emergency Guidance</title>
+
+  <!-- Global Med and Ware Styles -->
+  <link rel="stylesheet" href="../../css/global.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- First Aid Scoped Styles -->
+  <style>
+
+    /* FIX global flex layout */
+    body {
+      display: block !important;
+      height: auto !important;
+      overflow: auto !important;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8fafc;
+      padding: 40px 20px;
+    }
+
+    .fa-wrapper {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .fa-hero {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .fa-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #1e293b;
+    }
+
+    .fa-subtitle {
+      font-size: 18px;
+      color: #64748b;
+      margin-bottom: 25px;
+    }
+
+    .fa-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .fa-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 35px;
+    }
+
+    .fa-card {
+      background: white;
+      border-radius: 24px;
+      padding: 60px 30px;
+      text-decoration: none;
+      color: #1e293b;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 260px;
+      border: 3px solid #2d3748;
+    }
+
+    .fa-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      border-color: #5b8def;
+    }
+
+    .fa-icon {
+      font-size: 70px;
+      margin-bottom: 20px;
+    }
+
+    .fa-card h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #5b8def;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 25px 15px; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="fa-wrapper">
+
+    <section class="fa-hero">
+      <h1 class="fa-title">First Aid Advisor</h1>
+      <p class="fa-subtitle">
+        Quick access to life-saving emergency instructions
+      </p>
+
+      <div class="fa-badge">
+        For Emergencies: Call 911 / 108 Immediately
+      </div>
+    </section>
+
+    <main class="fa-grid">
+
+      <a href="First Aid/choking.html" class="fa-card">
+        <span class="fa-icon">🫁</span>
+        <h2>Choking</h2>
+      </a>
+
+      <a href="First Aid/cpr.html" class="fa-card">
+        <span class="fa-icon">❤️</span>
+        <h2>CPR</h2>
+      </a>
+
+      <a href="First Aid/stroke.html" class="fa-card">
+        <span class="fa-icon">🧠</span>
+        <h2>Stroke</h2>
+      </a>
+
+      <a href="First Aid/bleeding.html" class="fa-card">
+        <span class="fa-icon">🩸</span>
+        <h2>Bleeding</h2>
+      </a>
+
+      <a href="First Aid/burns.html" class="fa-card">
+        <span class="fa-icon">🔥</span>
+        <h2>Burns</h2>
+      </a>
+
+      <a href="First Aid/fracture.html" class="fa-card">
+        <span class="fa-icon">🦴</span>
+        <h2>Fracture</h2>
+      </a>
+
+      <a href="First Aid/injury.html" class="fa-card">
+        <span class="fa-icon">🩹</span>
+        <h2>Injury</h2>
+      </a>
+
+      <a href="First Aid/heart_attack.html" class="fa-card">
+        <span class="fa-icon">🫀</span>
+        <h2>Heart Attack</h2>
+      </a>
+
+    </main>
+
+  </div>
+
+</body>
+</html>

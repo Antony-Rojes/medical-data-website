@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Step-by-step CPR first aid instructions with visual and audio guidance">
+  <title>CPR First Aid - Step by Step Guide</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="page">
+  <a href="../index.html" class="back-btn"></a>
+
+  <div class="header-bar">
+    <div class="header-title">CPR – First Aid Steps</div>
+  </div>
+
+  <div class="card">
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <!-- Step Indicator -->
+    <div class="step-indicator">
+      <div class="step-circle active">1</div>
+      <div class="step-line"></div>
+      <div class="step-circle">2</div>
+      <div class="step-line"></div>
+      <div class="step-circle">3</div>
+      <div class="step-line"></div>
+      <div class="step-circle">4</div>
+      <div class="step-line"></div>
+      <div class="step-circle">5</div>
+      <div class="step-line"></div>
+      <div class="step-circle">6</div>
+      <div class="step-line"></div>
+      <div class="step-circle">7</div>
+      <div class="step-line"></div>
+      <div class="step-circle">8</div>
+    </div>
+
+    <br>
+
+    <!-- Slide 1 -->
+    <div class="slide active" data-audio="../assets/audio/cpr_audio1.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/cpr1.png" alt="Hand position for CPR">
+        </div>
+        <div class="text">
+          <p>Kneel beside the person’s chest. Place one hand in the center of the chest, put your other hand on top, and keep your arms straight.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide" data-audio="../assets/audio/cpr_audio2.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/cpr2.png" alt="Chest compression">
+        </div>
+        <div class="text">
+          <p>Push your hands straight down on the center of the chest. Use your body weight and press hard and fast.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide" data-audio="../assets/audio/cpr_audio3.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/cpr3.png" alt="Chest recoil">
+        </div>
+        <div class="text">
+          <p>Allow the chest to fully return after each compression. Then press down again for the next compression.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide" data-audio="../assets/audio/cpr_audio4.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/cpr4.png" alt="Open airway">
+        </div>
+        <div class="text">
+          <p>Tilt the person’s head back and lift the chin to open the airway.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide" data-audio="../assets/audio/cpr_audio5.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/cpr5.png" alt="Start rescue breathing">
+        </div>
+        <div class="text">
+          <p>If the person does not respond, begin mouth-to-mouth rescue breathing.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide" data-audio="../assets/audio/cpr_audio6.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/cpr6.png" alt="Pinch nose closed">
+        </div>
+        <div class="text">
+          <p>Pinch the person’s nose closed to prevent air from escaping.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide" data-audio="../assets/audio/cpr_audio7.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/cpr7.png" alt="Give rescue breath">
+        </div>
+        <div class="text">
+          <p>Seal your mouth over the person’s mouth and give a slow, steady breath.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide" data-audio="../assets/audio/cpr_audio8.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/cpr8.png" alt="Continue CPR cycle">
+        </div>
+        <div class="text">
+          <p>Continue alternating chest compressions and rescue breaths until the person starts breathing or emergency help arrives.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio Player -->
+    <audio id="audioPlayer" controls></audio>
+
+    <!-- Navigation Controls -->
+    <div class="controls">
+      <button class="prev-btn secondary" onclick="prevSlide()">Previous</button>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="../js/cpr.js"></script>
+</body>
+</html>

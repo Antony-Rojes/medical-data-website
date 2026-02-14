@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Med and Ware - AI Symptom Checker</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+</head>
+
+<body>
+
+  <!-- Loader -->
+  <div id="loader" class="loader-container">
+    <div class="loader-content">
+      <div class="spinner"></div>
+      <p>Initializing Med and Ware Database...</p>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-flex">
+
+      <div class="logo">
+        <div class="logo-icon">🩺</div>
+        <h1>Med and Ware</h1>
+  </header>
+
+  <!-- Main Chat Area -->
+  <main class="main">
+    
+    <section class="chat-section">
+      <div class="container">
+        
+        <div id="chat-output" class="chat-output">
+          <div class="message bot-message">
+            <strong> </strong>
+          </div>
+        </div>
+
+        <div class="input-area">
+          <input 
+            type="text" 
+            id="user-input" 
+            placeholder="Type your symptoms here..." 
+            autocomplete="off"
+          >
+
+          <button id="send-btn" class="send-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+            </svg>
+          </button>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="../js/main.js"></script>
+
+</body>
+</html>

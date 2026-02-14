@@ -1,0 +1,121 @@
+{
+  "disease_id": "nausea",
+  "name": "Nausea",
+  "category": "light",
+
+  "description": "Nausea is a sensation of unease or discomfort in the stomach that may lead to vomiting. It can be caused by indigestion, infection, motion sickness, or certain medications.",
+
+  "severity_levels": {
+    "mild": {
+      "definition": "Mild nausea without frequent vomiting or danger signs",
+      "criteria": {
+        "frequency": "Occasional",
+        "duration_days": "<3",
+        "other_symptoms": "none"
+      }
+    },
+
+    "moderate": {
+      "definition": "Persistent nausea requiring monitoring",
+      "criteria": {
+        "frequency": "Frequent",
+        "duration_days": "3-7"
+      }
+    },
+
+    "high_risk": {
+      "definition": "Severe nausea or nausea with dehydration or neurological symptoms",
+      "criteria": {
+        "frequency": "Continuous",
+        "duration_days": ">7",
+        "other_symptoms": "persistent vomiting, severe dehydration, confusion"
+      }
+    }
+  },
+
+  "care_guidelines": {
+    "self_care": [
+      "Sip small amounts of clear fluids frequently",
+      "Eat bland foods like crackers or toast",
+      "Avoid strong smells and spicy foods",
+      "Rest in a comfortable position",
+      "Take small frequent meals instead of large meals"
+    ],
+
+    "medicines": [
+      {
+        "name": "Ondansetron 4mg Tablet",
+        "category": "OTC",
+        "used_for": "Relief of nausea and vomiting",
+        "avoid_if": [
+          "Severe liver disease without supervision",
+          "Known ondansetron allergy"
+        ],
+        "dose": "Adults: 4 mg every 8 hours as needed"
+      },
+      {
+        "name": "Domperidone 10mg Tablet",
+        "category": "OTC",
+        "used_for": "Relief of nausea due to indigestion",
+        "avoid_if": [
+          "Heart rhythm disorders",
+          "Severe liver impairment"
+        ],
+        "dose": "Adults: 10 mg up to 3 times daily before meals"
+      }
+    ]
+  },
+
+  "doctor_consultation": {
+    "immediate": [
+      "persistent vomiting",
+      "severe dehydration",
+      "confusion",
+      "blood in vomit",
+      "severe abdominal pain"
+    ],
+
+    "urgent": [
+      "nausea lasting more than 7 days",
+      "high fever with nausea",
+      "worsening weakness",
+      "inability to keep fluids down"
+    ],
+
+    "message": "Seek medical attention if nausea is severe, persistent, or associated with dehydration, confusion, blood in vomit, or severe abdominal pain."
+  },
+
+  "assessment_questions": [
+    {
+      "id": "frequency",
+      "question": "How often are you experiencing nausea?",
+      "type": "single_select",
+      "options": [
+        "Occasional",
+        "Frequent",
+        "Continuous"
+      ]
+    },
+    {
+      "id": "duration_days",
+      "question": "How many days have you had nausea?",
+      "type": "single_select",
+      "options": ["<3", "3-7", ">7"]
+    },
+    {
+      "id": "other_symptoms",
+      "question": "Select any additional symptoms:",
+      "type": "multi_select",
+      "options": [
+        "Persistent vomiting",
+        "Severe dehydration",
+        "Confusion",
+        "Blood in vomit",
+        "Severe abdominal pain",
+        "None of these"
+      ]
+    }
+  ],
+
+  "disclaimer": "This is educational information only and not a substitute for professional medical advice. Seek urgent care if symptoms are severe or worsening."
+}

@@ -1,0 +1,126 @@
+{
+  "disease_id": "fever",
+  "name": "Fever",
+  "category": "light",
+
+  "description": "Fever is a temporary increase in body temperature, usually due to infection or inflammation. Most fevers resolve within a few days with rest and hydration.",
+
+  "severity_levels": {
+    "mild": {
+      "definition": "Low-grade fever with minimal symptoms",
+      "criteria": {
+        "temperature_level": "mild",
+        "duration_days": "<3",
+        "other_symptoms": "none"
+      }
+    },
+
+    "moderate": {
+      "definition": "Moderate fever requiring monitoring",
+      "criteria": {
+        "temperature_level": "moderate",
+        "duration_days": "3-7"
+      }
+    },
+
+    "high_risk": {
+      "definition": "High fever or fever with danger signs requiring medical attention",
+      "criteria": {
+        "temperature_level": "severe",
+        "duration_days": ">7",
+        "other_symptoms": "breathing difficulty, confusion, persistent vomiting, seizure"
+      }
+    }
+  },
+
+  "care_guidelines": {
+    "self_care": [
+      "Rest in a cool and comfortable environment",
+      "Drink plenty of fluids (water, ORS, coconut water)",
+      "Wear light and breathable clothing",
+      "Use lukewarm sponging if temperature is high",
+      "Monitor temperature every 4–6 hours"
+    ],
+
+    "medicines": [
+      {
+        "name": "Paracetamol 500mg Tablet",
+        "category": "OTC",
+        "used_for": "Fever reduction and mild pain relief",
+        "avoid_if": [
+          "Severe liver disease",
+          "Known paracetamol allergy"
+        ],
+        "dose": "Adults: 500–1000 mg every 6 hours (Maximum 4000 mg in 24 hours)"
+      },
+      {
+        "name": "Ibuprofen 400mg Tablet",
+        "category": "OTC",
+        "used_for": "Fever with inflammation or body pain",
+        "avoid_if": [
+          "Stomach ulcers",
+          "Kidney disease",
+          "NSAID allergy"
+        ],
+        "dose": "Adults: 400 mg every 6–8 hours with food (Maximum 1200 mg in 24 hours OTC)"
+      }
+    ]
+  },
+
+  "doctor_consultation": {
+    "immediate": [
+      "breathing difficulty",
+      "confusion",
+      "seizure",
+      "loss of consciousness",
+      "persistent vomiting",
+      "severe weakness"
+    ],
+
+    "urgent": [
+      "fever lasting more than 7 days",
+      "worsening symptoms despite medication",
+      "rash with fever",
+      "severe dehydration"
+    ],
+
+    "message": "Seek medical attention if fever is severe, persists beyond one week, or is associated with breathing difficulty, confusion, seizures, or persistent vomiting."
+  },
+
+  "assessment_questions": [
+    {
+      "id": "temperature_level",
+      "question": "How high is your fever?",
+      "type": "single_select",
+      "options": [
+        "Mild (<100.4°F)",
+        "Moderate (100.4–102°F)",
+        "Severe (>102°F)"
+      ]
+    },
+    {
+      "id": "duration_days",
+      "question": "How many days have you had the fever?",
+      "type": "single_select",
+      "options": ["<3", "3-7", ">7"]
+    },
+    {
+      "id": "other_symptoms",
+      "question": "Select any additional symptoms:",
+      "type": "multi_select",
+      "options": [
+        "Headache",
+        "Body ache",
+        "Rash",
+        "Breathing difficulty",
+        "Confusion",
+        "Persistent vomiting",
+        "Seizure",
+        "Severe weakness",
+        "None of these"
+      ]
+    }
+  ],
+
+  "disclaimer": "This is educational information only and not a substitute for professional medical advice. Seek immediate medical care for severe or worsening symptoms."
+}

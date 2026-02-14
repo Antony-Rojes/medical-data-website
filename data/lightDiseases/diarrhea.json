@@ -1,0 +1,108 @@
+{
+  "disease_id": "diarrhea",
+  "name": "Diarrhea",
+  "category": "light",
+
+  "description": "Diarrhea is the passage of loose or watery stools, often caused by infection, food intolerance, or contaminated food or water. Most cases resolve within a few days with proper hydration.",
+
+  "severity_levels": {
+    "mild": {
+      "definition": "Mild diarrhea with short duration and no danger signs",
+      "criteria": {
+        "duration_days": "<3",
+        "other_symptoms": "none"
+      }
+    },
+
+    "moderate": {
+      "definition": "Persistent diarrhea requiring monitoring",
+      "criteria": {
+        "duration_days": "3-7"
+      }
+    },
+
+    "high_risk": {
+      "definition": "Severe diarrhea or diarrhea with dehydration or bleeding",
+      "criteria": {
+        "duration_days": ">7",
+        "other_symptoms": "severe dehydration, blood in stool, persistent vomiting"
+      }
+    }
+  },
+
+  "care_guidelines": {
+    "self_care": [
+      "Drink oral rehydration solution (ORS) frequently",
+      "Stay hydrated with water and coconut water",
+      "Eat light foods like rice, banana, and toast",
+      "Avoid dairy and oily foods",
+      "Rest adequately"
+    ],
+
+    "medicines": [
+      {
+        "name": "ORS (Oral Rehydration Solution)",
+        "category": "OTC",
+        "used_for": "Prevention and treatment of dehydration",
+        "avoid_if": [
+          "Severe dehydration requiring IV fluids",
+          "Persistent vomiting preventing intake"
+        ],
+        "dose": "Drink small frequent sips after each loose stool"
+      },
+      {
+        "name": "Loperamide 2mg Tablet",
+        "category": "OTC",
+        "used_for": "Reduction of frequent loose stools",
+        "avoid_if": [
+          "Bloody diarrhea",
+          "High fever with diarrhea"
+        ],
+        "dose": "Adults: 4 mg initially, then 2 mg after each loose stool (Max 8 mg/day OTC)"
+      }
+    ]
+  },
+
+  "doctor_consultation": {
+    "immediate": [
+      "severe dehydration",
+      "blood in stool",
+      "persistent vomiting",
+      "confusion",
+      "very little urine output"
+    ],
+
+    "urgent": [
+      "diarrhea lasting more than 7 days",
+      "high fever with diarrhea",
+      "worsening weakness",
+      "severe abdominal pain"
+    ],
+
+    "message": "Seek medical attention if diarrhea is severe, persists beyond one week, or is associated with dehydration, blood in stool, or persistent vomiting."
+  },
+
+  "assessment_questions": [
+    {
+      "id": "duration_days",
+      "question": "How many days have you had diarrhea?",
+      "type": "single_select",
+      "options": ["<3", "3-7", ">7"]
+    },
+    {
+      "id": "other_symptoms",
+      "question": "Select any additional symptoms:",
+      "type": "multi_select",
+      "options": [
+        "Severe dehydration",
+        "Blood in stool",
+        "Persistent vomiting",
+        "Severe abdominal pain",
+        "High fever",
+        "None of these"
+      ]
+    }
+  ],
+
+  "disclaimer": "This is educational information only and not a substitute for professional medical advice. Seek urgent care for signs of dehydration or blood in stool."
+}

@@ -1,0 +1,124 @@
+{
+  "disease_id": "headache",
+  "name": "Headache",
+  "category": "light",
+
+  "description": "Headache is pain or discomfort in the head or face region. It is commonly caused by stress, dehydration, lack of sleep, eye strain, or mild infections.",
+
+  "severity_levels": {
+    "mild": {
+      "definition": "Mild headache with short duration and no danger signs",
+      "criteria": {
+        "pain_level": "Mild",
+        "duration_days": "<3",
+        "other_symptoms": "None of these"
+      }
+    },
+
+    "moderate": {
+      "definition": "Moderate headache affecting daily activities",
+      "criteria": {
+        "pain_level": "Moderate",
+        "duration_days": "3-7"
+      }
+    },
+
+    "high_risk": {
+      "definition": "Severe headache or headache with neurological danger signs",
+      "criteria": {
+        "pain_level": "Severe",
+        "duration_days": ">7",
+        "other_symptoms": "Vision changes,Neck stiffness,Confusion,Persistent vomiting,Severe weakness"
+      }
+    }
+  },
+
+  "care_guidelines": {
+    "self_care": [
+      "Rest in a quiet, dark room",
+      "Stay hydrated with adequate fluids",
+      "Avoid bright screens and loud noise",
+      "Apply a cold compress to forehead or neck",
+      "Maintain proper sleep schedule"
+    ],
+
+    "medicines": [
+      {
+        "name": "Paracetamol 500mg Tablet",
+        "category": "OTC",
+        "used_for": "Relief of mild to moderate headache pain",
+        "avoid_if": [
+          "Severe liver disease",
+          "Known paracetamol allergy"
+        ],
+        "dose": "Adults: 500–1000 mg every 6 hours (Maximum 4000 mg in 24 hours)"
+      },
+      {
+        "name": "Ibuprofen 400mg Tablet",
+        "category": "OTC",
+        "used_for": "Headache with inflammation or tension component",
+        "avoid_if": [
+          "Stomach ulcers",
+          "Kidney disease",
+          "NSAID allergy"
+        ],
+        "dose": "Adults: 400 mg every 6–8 hours with food (Maximum 1200 mg in 24 hours OTC)"
+      }
+    ]
+  },
+
+  "doctor_consultation": {
+    "immediate": [
+      "vision changes",
+      "confusion",
+      "loss of consciousness",
+      "neck stiffness",
+      "persistent vomiting",
+      "severe weakness"
+    ],
+
+    "urgent": [
+      "headache lasting more than 7 days",
+      "worsening pain despite medication",
+      "headache after head injury",
+      "recurrent severe headaches"
+    ],
+
+    "message": "Seek medical attention if the headache is severe, sudden, persistent beyond a week, or associated with vision changes, confusion, neck stiffness, or vomiting."
+  },
+
+  "assessment_questions": [
+    {
+      "id": "pain_level",
+      "question": "How severe is your headache?",
+      "type": "single_select",
+      "options": [
+        "Mild",
+        "Moderate",
+        "Severe"
+      ]
+    },
+    {
+      "id": "duration_days",
+      "question": "How many days have you had this headache?",
+      "type": "single_select",
+      "options": ["<3", "3-7", ">7"]
+    },
+    {
+      "id": "other_symptoms",
+      "question": "Select any additional symptoms:",
+      "type": "multi_select",
+      "options": [
+        "Nausea",
+        "Vision changes",
+        "Neck stiffness",
+        "Confusion",
+        "Persistent vomiting",
+        "Severe weakness",
+        "None of these"
+      ]
+    }
+  ],
+
+  "disclaimer": "This is educational information only and not a substitute for professional medical advice. Seek urgent care for sudden or severe headaches."
+}

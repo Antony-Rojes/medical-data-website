@@ -1,0 +1,121 @@
+{
+  "disease_id": "sore_throat",
+  "name": "Sore Throat",
+  "category": "light",
+
+  "description": "A sore throat is pain, scratchiness, or irritation of the throat that often worsens when swallowing. It is commonly caused by viral infections, cold, or throat irritation.",
+
+  "severity_levels": {
+    "mild": {
+      "definition": "Mild throat irritation with short duration and no danger signs",
+      "criteria": {
+        "pain_level": "mild",
+        "duration_days": "<3",
+        "other_symptoms": "none"
+      }
+    },
+
+    "moderate": {
+      "definition": "Persistent throat pain requiring monitoring",
+      "criteria": {
+        "pain_level": "moderate",
+        "duration_days": "3-7"
+      }
+    },
+
+    "high_risk": {
+      "definition": "Severe throat pain or throat pain with danger signs",
+      "criteria": {
+        "pain_level": "severe",
+        "duration_days": ">7",
+        "other_symptoms": "difficulty swallowing, breathing difficulty, high fever"
+      }
+    }
+  },
+
+  "care_guidelines": {
+    "self_care": [
+      "Gargle with warm salt water",
+      "Drink warm fluids like tea or soup",
+      "Avoid cold or spicy foods",
+      "Use a humidifier to moisten the air",
+      "Rest your voice and stay hydrated"
+    ],
+
+    "medicines": [
+      {
+        "name": "Paracetamol 500mg Tablet",
+        "category": "OTC",
+        "used_for": "Relief of throat pain and mild fever",
+        "avoid_if": [
+          "Severe liver disease",
+          "Known paracetamol allergy"
+        ],
+        "dose": "Adults: 500–1000 mg every 6 hours (Maximum 4000 mg in 24 hours)"
+      },
+      {
+        "name": "Lozenges (e.g., Amylmetacresol + Dichlorobenzyl Alcohol)",
+        "category": "OTC",
+        "used_for": "Temporary relief of throat irritation",
+        "avoid_if": [
+          "Allergy to ingredients",
+          "Children under recommended age"
+        ],
+        "dose": "Adults: Dissolve one lozenge slowly in mouth every 2–3 hours as needed"
+      }
+    ]
+  },
+
+  "doctor_consultation": {
+    "immediate": [
+      "breathing difficulty",
+      "difficulty swallowing",
+      "high fever",
+      "severe neck swelling",
+      "drooling"
+    ],
+
+    "urgent": [
+      "sore throat lasting more than 7 days",
+      "worsening pain",
+      "white patches in throat",
+      "recurrent episodes"
+    ],
+
+    "message": "Seek medical attention if sore throat is severe, persistent beyond one week, or associated with breathing difficulty, difficulty swallowing, or high fever."
+  },
+
+  "assessment_questions": [
+    {
+      "id": "pain_level",
+      "question": "How severe is your sore throat?",
+      "type": "single_select",
+      "options": [
+        "Mild",
+        "Moderate",
+        "Severe"
+      ]
+    },
+    {
+      "id": "duration_days",
+      "question": "How many days have you had this sore throat?",
+      "type": "single_select",
+      "options": ["<3", "3-7", ">7"]
+    },
+    {
+      "id": "other_symptoms",
+      "question": "Select any additional symptoms:",
+      "type": "multi_select",
+      "options": [
+        "Difficulty swallowing",
+        "Breathing difficulty",
+        "High fever",
+        "White patches in throat",
+        "Severe neck swelling",
+        "None of these"
+      ]
+    }
+  ],
+
+  "disclaimer": "This is educational information only and not a substitute for professional medical advice. Seek urgent medical care if symptoms are severe or worsening."
+}

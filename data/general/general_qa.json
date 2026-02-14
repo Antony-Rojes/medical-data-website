@@ -1,0 +1,139 @@
+{
+  "intents": [
+    {
+      "intent": "greeting",
+      "patterns": [
+        "hi", "hello", "hey", "good morning", "good evening", "good afternoon",
+        "greetings", "howdy", "hola", "namaste", "welcome", "yo",
+        "what's up", "how's it going", "hey there", "hello there"
+      ],
+      "responses": [
+        "Hello! 👋 How can I help you today?",
+        "Hi there! 😊 What symptoms are you experiencing?",
+        "Hey! Ready to check your symptoms?",
+        "Good day! How are you feeling?"
+      ]
+    },
+    {
+      "intent": "identity",
+      "patterns": [
+        "who are you", "what are you", "your name", "what is this", "who made you",
+        "what do you do", "are you a doctor", "are you real doctor"
+      ],
+      "responses": [
+        "I'm MediCheck, your AI health assistant 🤖",
+        "MediCheck here! I'm an AI assistant for common health guidance.",
+        "I'm not a doctor, but I can provide general health information and symptom guidance."
+      ]
+    },
+    {
+      "intent": "capability",
+      "patterns": [
+        "what can you do", "how can you help", "what do you do", "your capabilities",
+        "can you help me", "what symptoms can you check", "do you treat diseases"
+      ],
+      "responses": [
+        "I can help with common symptoms like headache, fever, cough, cold, acidity, and more!",
+        "I provide guidance for 10+ common symptoms with safe self-care advice.",
+        "I analyze symptoms and tell you when to see a doctor."
+      ]
+    },
+    {
+      "intent": "thanks",
+      "patterns": [
+        "thank you", "thanks", "thank u", "thx", "ty", "appreciate it",
+        "that's helpful", "good advice", "useful", "thanks a lot"
+      ],
+      "responses": [
+        "You're welcome! 😊 Take care and stay healthy.",
+        "Happy to help! Feel better soon! 🌟",
+        "My pleasure! Stay safe 💚"
+      ]
+    },
+    {
+      "intent": "farewell",
+      "patterns": [
+        "bye", "goodbye", "see you", "see ya", "talk later", "cya",
+        "take care", "gotta go", "leaving now", "signing off"
+      ],
+      "responses": [
+        "Goodbye! Stay healthy 💚",
+        "Take care! Feel free to return anytime.",
+        "Bye! Wishing you good health."
+      ]
+    },
+    {
+      "intent": "disclaimer",
+      "patterns": [
+        "are you a doctor", "can you diagnose", "are you qualified",
+        "medical advice", "can i trust you"
+      ],
+      "responses": [
+        "⚠️ I'm NOT a doctor. I provide general guidance only.",
+        "Please consult a healthcare professional for medical advice."
+      ]
+    },
+    {
+      "intent": "emergency",
+      "patterns": [
+        "emergency", "urgent", "hospital", "911",
+        "chest pain", "cannot breathe", "bleeding heavily"
+      ],
+      "responses": [
+        "🚨 EMERGENCY! Call emergency services immediately!",
+        "⚠️ This sounds serious. Go to the nearest hospital!"
+      ]
+    },
+    {
+      "intent": "symptom_start",
+      "patterns": [
+        "i have", "feeling", "symptoms", "i'm experiencing",
+        "not feeling well", "health issue"
+      ],
+      "responses": [
+        "I'm listening! Please describe your symptoms.",
+        "Tell me more about what you're feeling."
+      ]
+    },
+    {
+      "intent": "confusion",
+      "patterns": [
+        "i don't know", "not sure", "confused", "help me"
+      ],
+      "responses": [
+        "Just tell me something simple like fever or headache 🙂",
+        "Describe what’s bothering you — I’ll guide you."
+      ]
+    },
+    {
+      "intent": "no_symptoms",
+      "patterns": [
+        "i'm fine", "feeling good", "no symptoms", "healthy"
+      ],
+      "responses": [
+        "Great to hear! 😊 Stay healthy!",
+        "Awesome! Keep up the good habits!"
+      ]
+    },
+    {
+      "intent": "repeat",
+      "patterns": [
+        "repeat", "say again", "what did you say"
+      ],
+      "responses": [
+        "Sure! What should I repeat?",
+        "Happy to clarify!"
+      ]
+    },
+    {
+      "intent": "hours",
+      "patterns": [
+        "your hours", "when open", "working hours", "available times"
+      ],
+      "responses": [
+        "I'm available 24/7 😊",
+        "I’m always here to help!"
+      ]
+    }
+  ]
+}

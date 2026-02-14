@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Step-by-step minor injury first aid instructions with visual and audio guidance">
+  <title>Injury First Aid - Step by Step Guide</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="page">
+  <a href="../index.html" class="back-btn"></a>
+
+  <div class="header-bar">
+    <div class="header-title">Injury – First Aid Steps</div>
+  </div>
+
+  <div class="card">
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step-circle active">1</div>
+      <div class="step-line"></div>
+      <div class="step-circle">2</div>
+      <div class="step-line"></div>
+      <div class="step-circle">3</div>
+      <div class="step-line"></div>
+      <div class="step-circle">4</div>
+      <div class="step-line"></div>
+      <div class="step-circle">5</div>
+      <div class="step-line"></div>
+      <div class="step-circle">6</div>
+    </div>
+
+    <br>
+
+    <div class="slide active" data-audio="../assets/audio/injury_audio1.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/injury1.png" alt="Apply direct pressure">
+        </div>
+        <div class="text">
+          <p>Apply firm direct pressure to the bleeding wound using a clean cloth or gauze. Hold pressure continuously for 5 to 10 minutes without checking. Most bleeding stops with steady pressure.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/injury_audio2.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/injury2.png" alt="Elevate injured area">
+        </div>
+        <div class="text">
+          <p>Elevate the injured limb above heart level if possible. Use pillows or other support to keep it raised. Elevation helps reduce bleeding and swelling.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/injury_audio3.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/injury3.png" alt="Apply ice pack">
+        </div>
+        <div class="text">
+          <p>Apply an ice pack or cold compress wrapped in a thin cloth. Use for 10 to 15 minutes every hour. Never apply ice directly to the skin.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/injury_audio4.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/injury4.png" alt="Clean the wound">
+        </div>
+        <div class="text">
+          <p>Once bleeding has stopped, gently clean the wound with clean water or mild antiseptic. Rinse from the center outward and avoid scrubbing the area.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/injury_audio5.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/injury5.png" alt="Apply antibiotic ointment">
+        </div>
+        <div class="text">
+          <p>Apply a thin layer of antibiotic ointment to the cleaned wound. This helps prevent infection and supports proper healing.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" data-audio="../assets/audio/injury_audio6.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/injury6.png" alt="Bandage the wound">
+        </div>
+        <div class="text">
+          <p>Cover the wound with sterile gauze and secure it with a bandage. Wrap snugly but not too tight. Check circulation to ensure fingers or toes do not turn blue.</p>
+        </div>
+      </div>
+    </div>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <div class="controls">
+      <button class="prev-btn secondary" onclick="prevSlide()">Previous</button>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/injury.js"></script>
+</body>
+</html>

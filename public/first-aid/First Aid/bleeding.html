@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Step-by-step bleeding first aid instructions with visual and audio guidance">
+  <title>Bleeding First Aid - Step by Step Guide</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="page">
+  <a href="../index.html" class="back-btn"></a>
+
+  <div class="header-bar">
+    <div class="header-title">Bleeding – First Aid Steps</div>
+  </div>
+
+  <div class="card">
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step-circle active">1</div>
+      <div class="step-line"></div>
+      <div class="step-circle">2</div>
+      <div class="step-line"></div>
+      <div class="step-circle">3</div>
+      <div class="step-line"></div>
+      <div class="step-circle">4</div>
+    </div>
+
+    <br>
+
+    <!-- Step 1 : Assessment -->
+    <div class="slide active" data-audio="../assets/audio/bleeding_audio1.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/bleeding1.png" alt="Check bleeding source">
+        </div>
+        <div class="text">
+          <p>Check the injured person and identify where the bleeding is coming from. Stay calm and make sure the area is safe before giving first aid.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 : Direct Pressure -->
+    <div class="slide" data-audio="../assets/audio/bleeding_audio2.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/bleeding2.png" alt="Apply direct pressure">
+        </div>
+        <div class="text">
+          <p>Place a clean cloth, bandage, or dressing directly over the bleeding wound. Use your hand to press firmly on the area to help slow the bleeding.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 : Add More Dressings -->
+    <div class="slide" data-audio="../assets/audio/bleeding_audio3.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/bleeding3.png" alt="Add more dressing">
+        </div>
+        <div class="text">
+          <p>If blood soaks through, place another cloth or dressing on top and keep pressing. Do not remove the first pad. Maintain steady, firm pressure on the wound.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 : Secure Bandage -->
+    <div class="slide" data-audio="../assets/audio/bleeding_audio4.mp3">
+      <div class="slide-content-wrapper">
+        <div class="image-container">
+          <img src="../assets/images/bleeding4.png" alt="Secure bandage">
+        </div>
+        <div class="text">
+          <p>Wrap a bandage firmly around the injured area to hold the dressing in place. Make it snug but not too tight. Check fingers or toes for warmth and normal color to ensure blood flow is not blocked.</p>
+        </div>
+      </div>
+    </div>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <div class="controls">
+      <button class="prev-btn secondary" onclick="prevSlide()">Previous</button>
+      <button class="next-btn" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/bleeding.js"></script>
+</body>
+</html>
+

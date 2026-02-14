@@ -1,0 +1,119 @@
+{
+  "disease_id": "cough",
+  "name": "Cough",
+  "category": "light",
+
+  "description": "Cough is a reflex action that helps clear mucus, irritants, or infections from the airways. Most coughs are caused by viral infections and improve within 1–2 weeks.",
+
+  "severity_levels": {
+    "mild": {
+      "definition": "Short-duration mild cough without danger signs",
+      "criteria": {
+        "cough_type": "mild",
+        "duration_days": "<7",
+        "other_symptoms": "none"
+      }
+    },
+
+    "moderate": {
+      "definition": "Persistent cough requiring monitoring",
+      "criteria": {
+        "duration_days": "7-14"
+      }
+    },
+
+    "high_risk": {
+      "definition": "Severe cough or cough with respiratory danger signs",
+      "criteria": {
+        "duration_days": ">14",
+        "other_symptoms": "breathing difficulty, chest pain, blood in phlegm"
+      }
+    }
+  },
+
+  "care_guidelines": {
+    "self_care": [
+      "Drink warm fluids to soothe the throat",
+      "Use steam inhalation to ease congestion",
+      "Avoid cold drinks and irritants like smoke",
+      "Use honey (for adults) to relieve throat irritation",
+      "Rest adequately to support recovery"
+    ],
+
+    "medicines": [
+      {
+        "name": "Dextromethorphan 15mg Syrup",
+        "category": "OTC",
+        "used_for": "Relief of dry cough",
+        "avoid_if": [
+          "Chronic lung disease without medical advice",
+          "Children under 6 years"
+        ],
+        "dose": "Adults: 10–20 mg every 4 hours or 30 mg every 6–8 hours (Max 120 mg/day)"
+      },
+      {
+        "name": "Guaifenesin 200mg Tablet",
+        "category": "OTC",
+        "used_for": "Relief of productive cough with mucus",
+        "avoid_if": [
+          "Persistent cough lasting more than 2 weeks",
+          "Chronic asthma without supervision"
+        ],
+        "dose": "Adults: 200–400 mg every 4 hours (Max 2400 mg/day)"
+      }
+    ]
+  },
+
+  "doctor_consultation": {
+    "immediate": [
+      "breathing difficulty",
+      "chest pain",
+      "blood in phlegm",
+      "severe wheezing",
+      "blue lips or face"
+    ],
+
+    "urgent": [
+      "cough lasting more than 14 days",
+      "high fever with cough",
+      "worsening symptoms",
+      "unexplained weight loss"
+    ],
+
+    "message": "Seek medical attention if cough persists beyond two weeks or is associated with breathing difficulty, chest pain, or blood in phlegm."
+  },
+
+  "assessment_questions": [
+    {
+      "id": "cough_type",
+      "question": "What type of cough do you have?",
+      "type": "single_select",
+      "options": [
+        "Mild",
+        "Moderate",
+        "Severe"
+      ]
+    },
+    {
+      "id": "duration_days",
+      "question": "How many days have you had this cough?",
+      "type": "single_select",
+      "options": ["<7", "7-14", ">14"]
+    },
+    {
+      "id": "other_symptoms",
+      "question": "Select any additional symptoms:",
+      "type": "multi_select",
+      "options": [
+        "Fever",
+        "Chest pain",
+        "Breathing difficulty",
+        "Blood in phlegm",
+        "Wheezing",
+        "None of these"
+      ]
+    }
+  ],
+
+  "disclaimer": "This is educational information only and not a substitute for professional medical advice. Seek medical care for severe or persistent cough."
+}

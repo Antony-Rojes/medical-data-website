@@ -1,0 +1,98 @@
+{
+  "fever": {
+    "disease_id": "fever",
+    "keywords": [
+      "fever", "high temperature", "body heat", "feeling hot", "chills",
+      "feverish", "pyrexia", "running fever", "temperature", "hot body",
+      "shivering", "sweating", "burning up", "febrile", "chills and fever",
+      "high fever", "low grade fever", "spiking fever", "hot and cold",
+      "body temperature high", "feeling feverish", "warm forehead"
+    ]
+  },
+  
+  "headache": {
+    "disease_id": "headache",
+    "keywords": [
+      "headache", "head pain", "head ache", "migraine", "forehead pain",
+      "pain in head", "throbbing head", "my head hurts", "cephalalgia",
+      "pressure in head", "temple pain", "constant headache", "pounding head",
+      "splitting headache", "head is heavy", "head feels tight", "head throbbing",
+      "severe headache", "mild headache", "pain behind eyes", "head pressure"
+    ]
+  },
+  
+  "cough": {
+    "disease_id": "cough",
+    "keywords": [
+      "cough", "dry cough", "wet cough", "coughing", "throat irritation",
+      "productive cough", "chesty cough", "persistent cough", "hacking cough",
+      "tickly cough", "mucus cough", "phlegm", "cough with phlegm",
+      "night cough", "morning cough", "allergic cough", "continuous cough"
+    ]
+  },
+  
+  "cold": {
+    "disease_id": "cold",
+    "keywords": [
+      "cold", "common cold", "runny nose", "blocked nose", "stuffy nose",
+      "nasal congestion", "sneezing", "sniffles", "watery nose", "nose running",
+      "nose blocked", "congestion", "post nasal drip", "sinus pressure"
+    ]
+  },
+  
+  "acidity": {
+    "disease_id": "acidity",
+    "keywords": [
+      "acidity", "heartburn", "acid reflux", "stomach burning", "gas",
+      "indigestion", "dyspepsia", "hyperacidity", "gerd", "chest burning",
+      "acid", "sour stomach", "burping", "belching", "bloating",
+      "stomach discomfort", "sour taste", "acidic stomach", "burning sensation"
+    ]
+  },
+  
+  "back_pain": {
+    "disease_id": "back_pain",
+    "keywords": [
+      "back pain", "back ache", "lower back pain", "upper back pain",
+      "spine pain", "backache", "back hurts", "pain in back", "back stiffness",
+      "lumbar pain", "back soreness", "mid back pain", "back injury"
+    ]
+  },
+  
+  "stomach_pain": {
+    "disease_id": "stomach_pain",
+    "keywords": [
+      "stomach pain", "stomach ache", "abdominal pain", "belly pain",
+      "tummy ache", "stomach cramps", "pain in stomach", "stomach hurts",
+      "abdominal cramps", "gastric pain", "stomach discomfort"
+    ]
+  },
+  
+  "diarrhea": {
+    "disease_id": "diarrhea",
+    "keywords": [
+      "diarrhea", "loose motion", "loose motions", "loose stools",
+      "frequent stools", "stomach upset", "gastroenteritis", "watery stools",
+      "upset stomach", "bowel problem", "running stomach", "liquid stool"
+    ]
+  },
+  
+  "nausea": {
+    "disease_id": "nausea",
+    "keywords": [
+      "nausea", "nauseous", "feeling sick", "queasy", "want to vomit",
+      "sick feeling", "vomiting", "throwing up", "puking", "feel like throwing up",
+      "upset stomach nausea", "motion sickness", "morning sickness"
+    ]
+  },
+  
+  "sore_throat": {
+    "disease_id": "sore_throat",
+    "keywords": [
+      "sore throat", "throat pain", "scratchy throat", "pain while swallowing",
+      "pharyngitis", "irritated throat", "throat irritation", "swollen throat",
+      "difficulty swallowing", "painful throat", "raw throat", "burning throat",
+      "throat hurts", "swollen tonsils", "red throat", "throat infection"
+    ]
+  }
+}

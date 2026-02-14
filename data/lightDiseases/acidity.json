@@ -1,0 +1,125 @@
+{
+  "disease_id": "acidity",
+  "name": "Acidity (Acid Reflux)",
+  "category": "light",
+
+  "description": "Acidity, also known as acid reflux, occurs when stomach acid flows back into the food pipe, causing burning sensation in the chest or throat. It is often triggered by spicy food, overeating, or lying down after meals.",
+
+  "severity_levels": {
+    "mild": {
+      "definition": "Occasional mild burning without danger signs",
+      "criteria": {
+        "burning_severity": "mild",
+        "frequency": "Occasionally",
+        "other_symptoms": "none"
+      }
+    },
+
+    "moderate": {
+      "definition": "Frequent acidity requiring monitoring",
+      "criteria": {
+        "burning_severity": "moderate",
+        "frequency": "2-3 times per week"
+      }
+    },
+
+    "high_risk": {
+      "definition": "Severe acidity or symptoms suggesting complications",
+      "criteria": {
+        "burning_severity": "severe",
+        "frequency": "Daily",
+        "other_symptoms": "black stools, blood in vomit, severe stomach pain"
+      }
+    }
+  },
+
+  "care_guidelines": {
+    "self_care": [
+      "Avoid spicy, oily, and acidic foods",
+      "Eat smaller meals at regular intervals",
+      "Do not lie down immediately after eating",
+      "Elevate head while sleeping",
+      "Maintain healthy body weight"
+    ],
+
+    "medicines": [
+      {
+        "name": "Omeprazole 20mg Capsule",
+        "category": "OTC",
+        "used_for": "Reduction of stomach acid production",
+        "avoid_if": [
+          "Severe liver disease without supervision",
+          "Allergy to proton pump inhibitors"
+        ],
+        "dose": "Adults: 20 mg once daily before meals"
+      },
+      {
+        "name": "Pantoprazole 40mg Tablet",
+        "category": "OTC",
+        "used_for": "Treatment of acid reflux and heartburn",
+        "avoid_if": [
+          "Known allergy to PPIs",
+          "Severe liver disease"
+        ],
+        "dose": "Adults: 40 mg once daily before breakfast"
+      }
+    ]
+  },
+
+  "doctor_consultation": {
+    "immediate": [
+      "black stools",
+      "blood in vomit",
+      "severe stomach pain",
+      "difficulty swallowing",
+      "persistent vomiting"
+    ],
+
+    "urgent": [
+      "daily symptoms for more than 2 weeks",
+      "unintentional weight loss",
+      "worsening symptoms despite medication"
+    ],
+
+    "message": "Seek medical attention if acidity is severe, persistent, or associated with black stools, blood in vomit, or severe abdominal pain."
+  },
+
+  "assessment_questions": [
+    {
+      "id": "burning_severity",
+      "question": "How severe is the burning sensation?",
+      "type": "single_select",
+      "options": [
+        "Mild",
+        "Moderate",
+        "Severe"
+      ]
+    },
+    {
+      "id": "frequency",
+      "question": "How often do you experience this?",
+      "type": "single_select",
+      "options": [
+        "Occasionally",
+        "2-3 times per week",
+        "Daily"
+      ]
+    },
+    {
+      "id": "other_symptoms",
+      "question": "Select any additional symptoms:",
+      "type": "multi_select",
+      "options": [
+        "Nausea",
+        "Vomiting",
+        "Black stools",
+        "Blood in vomit",
+        "Severe stomach pain",
+        "Difficulty swallowing",
+        "None of these"
+      ]
+    }
+  ],
+
+  "disclaimer": "This is educational information only and not a substitute for professional medical advice. Seek medical care for severe, persistent, or worsening symptoms."
+}

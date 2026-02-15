@@ -1,15 +1,34 @@
+/**
+ * js/core/inputHandler.js - FIXED VERSION
+ * Corrected path issues and improved error handling
+ */
+
 let keywordsData = null;
 
 export async function loadKeywords() {
   try {
-const response = await fetch('../data/metadata/keywords.json');
+    // ✅ FIXED: Dynamic path resolution
+    const basePath = window.location.pathname.includes('/public/') 
+      ? '../data/metadata/keywords.json' 
+      : 'data/metadata/keywords.json';
+    
+    console.log('🔍 Loading keywords from:', basePath);
+    
+    const response = await fetch(basePath);
 
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
     keywordsData = await response.json();
-    console.log(`✅ LOADED ${Object.keys(keywordsData).length} DISEASES`);
+    console.log(`✅ LOADED ${Object.keys(keywordsData).length} DISEASE KEYWORDS`);
+    return true;
   } catch (error) {
-    console.error('Keywords failed:', error);
+    console.error('❌ Keywords load failed:', error);
+    console.error('Current URL:', window.location.pathname);
+    console.error('Please check file location and path');
     keywordsData = {};
+    return false;
   }
 }
 
@@ -27,7 +46,7 @@ function escapeRegex(str) {
 
 export function detectDisease(userInput) {
   if (!keywordsData || Object.keys(keywordsData).length === 0) {
-    console.log('⚠️ Keywords not loaded');
+    console.warn('⚠️ Keywords not loaded - cannot detect disease');
     return null;
   }
 

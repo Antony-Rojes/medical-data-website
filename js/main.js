@@ -1,6 +1,6 @@
 /**
- * js/main.js - COMPLETE REWRITE - PRODUCTION READY
- * All bugs fixed, optimized order, perfect error handling
+ * js/main.js - FIXED VERSION
+ * All bugs fixed, proper path resolution, enhanced error handling
  */
 import { loadKeywords, detectDisease } from './core/inputHandler.js';
 import { buildUserCondition } from './core/questionFlow.js'; 
@@ -33,8 +33,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   console.log('🚀 Med and Ware Initializing...');
   
+  // Load core data
   await loadGeneralQA();
-  await loadKeywords();
+  const keywordsLoaded = await loadKeywords();
+  
+  if (!keywordsLoaded) {
+    console.error('⚠️ CRITICAL: Keywords failed to load. Check file paths.');
+    addMessage('Bot', '⚠️ System initialization incomplete. Some features may not work. Please check console for errors.');
+  }
   
   state.isInitialized = true;
   console.log('✅ ALL SYSTEMS READY');
@@ -102,6 +108,14 @@ function handleUserResponse(text) {
   // ✅ Always show user message first
   addMessage('User', text);
 
+  // Try general responses first
+  const generalReply = getGeneralResponse(text);
+  if (generalReply) {
+    addMessage('Bot', generalReply);
+    return;
+  }
+
+  // Try disease detection
   const diseaseId = detectDisease(text);
 
   if (state.mode === 'WAITING_FOR_SYMPTOM' && diseaseId) {
@@ -109,18 +123,14 @@ function handleUserResponse(text) {
     return;
   }
 
-  const generalReply = getGeneralResponse(text);
-  if (generalReply) {
-    addMessage('Bot', generalReply);
+  // If in question mode, process as answer
+  if (state.mode !== 'WAITING_FOR_SYMPTOM') {
+    processAnswer(text);
     return;
   }
 
-  if (state.mode === 'WAITING_FOR_SYMPTOM') {
-    addMessage('Bot', getFallbackReply());
-    return;
-  }
-
-  processAnswer(text);
+  // Fallback
+  addMessage('Bot', getFallbackReply());
 }
 
 
@@ -133,9 +143,19 @@ async function processSymptom(diseaseId) {
     state.currentIndex = 0;
     state.answers = [];
     state.multiSelectAnswers = [];
-const response = await fetch(`../data/lightDiseases/${diseaseId}.json`);
+    
+    // ✅ FIXED: Dynamic path resolution
+    const basePath = window.location.pathname.includes('/public/') 
+      ? `../data/lightDiseases/${diseaseId}.json`
+      : `data/lightDiseases/${diseaseId}.json`;
+    
+    console.log('📂 Loading disease data from:', basePath);
+    
+    const response = await fetch(basePath);
 
-    if (!response.ok) throw new Error(`No ${diseaseId}.json found`);
+    if (!response.ok) {
+      throw new Error(`File not found: ${diseaseId}.json (HTTP ${response.status})`);
+    }
     
     state.diseaseData = await response.json();
     state.questions = state.diseaseData.assessment_questions || [];
@@ -180,11 +200,15 @@ const response = await fetch(`../data/lightDiseases/${diseaseId}.json`);
     
   } catch (error) {
     hideTyping();
-    console.error('Symptom error:', error);
+    console.error('❌ Symptom processing error:', error);
     addMessage('Bot', `
-      ⚠️ Sorry, I don't have information for "${formatName(diseaseId)}" yet.
+      ⚠️ Sorry, I couldn't load information for "${formatName(diseaseId)}".
+      <br><br>
+      <strong>Error:</strong> ${error.message}
       <br><br>
       <strong>Available symptoms:</strong> fever, headache, cough, acidity, diarrhea, sore throat, cold, back pain, nausea, stomach pain
+      <br><br>
+      <em>If this persists, check that your disease JSON files are in the correct location.</em>
     `);
     resetState();
   }

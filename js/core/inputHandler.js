@@ -2,7 +2,8 @@ let keywordsData = null;
 
 export async function loadKeywords() {
   try {
-    const response = await fetch('/data/metadata/keywords.json');
+const response = await fetch('../data/metadata/keywords.json');
+
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     keywordsData = await response.json();
     console.log(`✅ LOADED ${Object.keys(keywordsData).length} DISEASES`);

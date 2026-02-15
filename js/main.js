@@ -133,8 +133,8 @@ async function processSymptom(diseaseId) {
     state.currentIndex = 0;
     state.answers = [];
     state.multiSelectAnswers = [];
+const response = await fetch(`../data/lightDiseases/${diseaseId}.json`);
 
-    const response = await fetch(`/data/lightDiseases/${diseaseId}.json`);
     if (!response.ok) throw new Error(`No ${diseaseId}.json found`);
     
     state.diseaseData = await response.json();

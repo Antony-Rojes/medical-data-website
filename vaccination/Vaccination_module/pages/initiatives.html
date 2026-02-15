@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Health Initiatives</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --bg-soft: #f8fafc;
+            --card-border: #e2e8f0;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--text-main); 
+            padding-bottom: 50px;
+            line-height: var(--line-height-main);
+        }
+
+        .header-section { 
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%); 
+            color: white; 
+            padding: 40px 20px; 
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 30px; 
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.3);
+        }
+
+        .initiative-card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            padding: 25px;
+            height: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .initiative-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .initiative-title {
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-top: 10px;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #94a3b8;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .target-box {
+            background: #f1f5f9;
+            padding: 10px 15px;
+            border-radius: 12px;
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .details-box {
+            margin-top: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #334155;
+        }
+
+        .important-indicator {
+            padding-left: 15px;
+            background: #f0f9ff;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-section text-center">
+    <h1 class="fw-bold">Health Initiatives</h1>
+    <p class="opacity-75">Latest Government Schemes & Digital Platforms</p>
+</div>
+
+<div class="container" style="max-width: 900px;">
+    <div id="initContainer" class="row">
+        <div class="text-center text-muted">Fetching initiatives...</div>
+    </div>
+</div>
+
+<script>
+    // Embedded Data (Handling CSV logic internally for reliability)
+    const csvRawData = `Initiative,Status,Target Group,Details
+"U-WIN Portal","Live","All Ages","Digital immunisation registry under UIP; QR-based certificates, SMS reminders, self-registration, and real-time tracking of routine vaccines."
+"HPV Vaccine Rollout","Pilot Phase","Girls 9-14","Phased rollout of human papillomavirus vaccination to prevent cervical cancer; linked with school health and public vaccination campaigns."
+"Mission Indradhanush 5.0","Live","Children & Pregnant Women","Intensified routine immunisation campaign ensuring all missed children and pregnant women receive vaccines under UIP."
+"Adult BCG Study","Research","Adults 18+","Ongoing research to evaluate whether BCG provides broader immune benefits against respiratory diseases in adults; not yet a public immunisation program."`;
+
+    function parseCSV(text) {
+        const lines = text.split('\n');
+        const headers = lines[0].split(',');
+        return lines.slice(1).map(line => {
+            const matches = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+            if (!matches) return null;
+            const obj = {};
+            headers.forEach((header, i) => {
+                obj[header.trim()] = (matches[i] || "").replace(/^"|"$/g, '').trim();
+            });
+            return obj;
+        }).filter(x => x);
+    }
+
+    function render() {
+        const container = document.getElementById('initContainer');
+        const data = parseCSV(csvRawData);
+        container.innerHTML = '';
+
+        data.forEach(item => {
+            const status = item['Status'];
+            const badgeColor = 
+                status === 'Live' ? 'bg-success' : 
+                status === 'Pilot Phase' ? 'bg-warning text-dark' : 
+                status === 'Research' ? 'bg-info text-dark' : 'bg-secondary';
+
+            const col = document.createElement('div');
+            col.className = 'col-12 mb-4';
+            col.innerHTML = `
+    <div class="initiative-card" style="position: relative;">
+        <div style="
+            background: linear-gradient(135deg, #e0f2fe 0%, #b4dcff 100%);
+            padding: 20px 24px;
+            border-radius: 16px;
+            border: 2px solid rgba(14, 165, 233, 0.3);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.2);
+            margin-bottom: 1.5rem;
+            margin-top: -10px;
+        ">
+            <div class="d-flex justify-content-between align-items-start">
+                <h4 class="initiative-title mb-0">${item['Initiative']}</h4>
+                <span class="badge ${badgeColor} status-badge">${status}</span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <div class="target-box">${item['Target Group']}</div>
+        </div>
+
+        <div class="important-indicator">
+            <span class="section-label text-primary"><i class="bi bi-info-circle-fill"></i> Details</span>
+            <p class="details-box mb-0">${item['Details']}</p>
+        </div>
+    </div>
+`;
+
+            container.appendChild(col);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', render);
+</script>
+
+</body>
+</html>

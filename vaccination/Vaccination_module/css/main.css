@@ -1,0 +1,343 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lexend:wght@600;700&display=swap');
+
+:root {
+    --primary: #0EA5E9;
+    --primary-dark: #0284c7;
+    --medical-gradient: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 100%);
+    --page-bg: linear-gradient(135deg, #F8FAFC 0%, #E0F2FE 100%);
+    --text-main: #0f172a;
+    --card-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.15);
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--page-bg);
+    background-attachment: fixed;
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, .brand-font {
+    font-family: 'Lexend', sans-serif;
+}
+
+.card, .camp-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.card:hover, .camp-card:hover {
+    transform: translateY(-5px);
+}
+
+.medical-header {
+    background: var(--medical-gradient);
+    color: white;
+}
+
+/* ===== Camp Details UI ===== */
+
+.camp-header {
+    background: var(--medical-gradient);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.info-box {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 14px;
+    transition: all 0.2s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.info-box:hover {
+    background: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+}
+
+.info-box h6 {
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.info-box p {
+    margin-bottom: 0;
+    color: #475569;
+}
+
+.timing-box {
+    background: #f1f5f9;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+/* ===== Initiative UI ===== */
+
+.initiative-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 30px rgba(14,165,233,0.08);
+    transition: 0.3s ease;
+}
+
+.initiative-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 40px rgba(14,165,233,0.18);
+}
+
+.initiative-title {
+    color: #0EA5E9;
+}
+
+.target-box {
+    background: #e0f2fe;
+    padding: 12px 15px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+}
+
+.details-box {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ================= INITIATIVES UI ================= */
+
+.initiative-card {
+    background: #ffffff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(14,165,233,0.08);
+    transition: 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.initiative-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(14,165,233,0.18);
+}
+
+.initiative-header {
+    background: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 100%);
+    color: white;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.initiative-icon {
+    font-size: 1.6rem;
+}
+
+.initiative-body {
+    padding: 25px;
+}
+
+.target-section {
+    background: #e0f2fe;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+}
+
+.details-section {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #334155;
+}
+
+.benefit-section ul {
+    margin-bottom: 0;
+    padding-left: 18px;
+}
+
+.benefit-section li {
+    margin-bottom: 4px;
+}
+
+/* ================= INITIATIVES UI ================= */
+
+.initiative-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 30px rgba(14, 165, 233, 0.08);
+    transition: all 0.3s ease;
+}
+
+.initiative-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(14, 165, 233, 0.18);
+}
+
+.initiative-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--primary);
+}
+
+.target-box {
+    background: #f1f5f9;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+}
+
+.target-box strong {
+    color: #0f172a;
+}
+
+.details-box {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.6;
+}
+
+.initiative-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 28px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    transition: 0.3s ease;
+}
+
+.initiative-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.status-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 14px;
+    font-size: 0.75rem;
+    border-radius: 20px;
+}
+
+.initiative-title {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.target-section {
+    font-size: 0.95rem;
+    background: #f1f5f9;
+    padding: 10px 14px;
+    border-radius: 10px;
+}
+
+.important-section {
+    background: #fff3cd;
+    padding: 15px;
+    border-left: 5px solid #facc15;
+    border-radius: 12px;
+    font-size: 0.9rem;
+}
+
+.vaccine-box {
+    background: #f1f5f9;
+    border-radius: 16px;
+    padding: 22px;
+    border: 1px solid #e2e8f0;
+}
+
+.info-container {
+    background: #e0f2fe;
+    border-radius: 14px;
+    padding: 15px 18px;
+    border: 1px solid #bae6fd;
+    font-size: 0.95rem;
+    color: #075985;
+}
+
+.initiative-header-container {
+    background: linear-gradient(135deg, #e0f2fe 0%, #b4dcff 100%);
+    padding: 20px 24px;
+    border-radius: 16px;
+    border: 2px solid rgba(14, 165, 233, 0.3);
+    box-shadow: 0 8px 25px rgba(14, 165, 233, 0.2);
+    margin-bottom: 1.5rem;
+}
+
+:root {
+    --medical-primary: #0ea5e9;
+    --medical-secondary: #0ea5e91a;
+    --medical-gradient: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+    --page-bg: #f8fafc;
+    --text-main: #1e293b;
+}
+
+body {
+    background-color: var(--page-bg);
+    color: var(--text-main);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Glassmorphism Sidebar Effect */
+.sidebar {
+    width: 280px;
+    background: white;
+    border-right: 1px solid #e2e8f0;
+    padding: 2rem;
+}
+
+/* Enhanced Camp Cards */
+.camp-card {
+    background: white;
+    border: 1px solid #edf2f7;
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.camp-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 0;
+    background: var(--medical-primary);
+    transition: 0.3s;
+}
+
+.camp-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.camp-card:hover::before {
+    height: 100%;
+}
+
+/* Detail Page Header */
+.camp-header {
+    background: var(--medical-gradient);
+    border-radius: 0 0 40px 40px;
+    margin-bottom: -40px; /* Overlap effect */
+}
+
+.info-box {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #f1f5f9;
+    height: 100%;
+    transition: 0.2s;
+}
+
+.info-box:hover {
+    background: var(--medical-secondary);
+}

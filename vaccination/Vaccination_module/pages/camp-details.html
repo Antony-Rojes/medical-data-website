@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camp Details | HealthConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0ea5e9; --gradient: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+            --bg: #f8fafc; --card-bg: #ffffff; --border: #e2e8f0; --text-dark: #1e293b; --text-muted: #64748b;
+        }
+        * { box-sizing: border-box; }
+        body { background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text-dark); padding: 2rem 0; }
+        .container { max-width: 950px; margin: 0 auto; padding: 0 1rem; }
+        
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.9);
+            border: 1px solid var(--border); color: var(--text-dark); padding: 0.875rem 1.75rem; border-radius: 50px;
+            font-weight: 600; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: all 0.3s ease;
+            margin-bottom: 2rem; display: block; width: fit-content;
+        }
+        .back-btn:hover { background: white; transform: translateX(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+
+        .record-card { background: var(--card-bg); border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 1px solid var(--border); overflow: hidden; }
+        .card-header { background: var(--gradient); color: white; padding: 3rem 2.5rem; text-align: center; position: relative; }
+        .status-badge { position: absolute; top: 2rem; right: 2rem; background: rgba(255,255,255,0.2); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 700; font-size: 0.9rem; }
+        .card-title { font-size: 2.5rem; font-weight: 800; margin: 1rem 0 0.5rem 0; letter-spacing: -0.02em; }
+        .card-location { font-size: 1.25rem; opacity: 0.95; font-weight: 500; }
+
+        .section-header { background: #f8fafc; padding: 1.25rem 2.5rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; }
+        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+        .data-item { padding: 2rem 2.5rem; border-right: 1px solid #f8fafc; display: flex; flex-direction: column; }
+        .data-item:nth-child(2n) { border-right: none; }
+        .data-label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 0.75rem; }
+        .data-value { font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin: 0; line-height: 1.3; word-wrap: break-word; }
+        .data-value-highlight { color: var(--primary); }
+        .data-icon { margin-right: 0.5rem; width: 1.2rem; opacity: 0.8; }
+
+        .action-section { padding: 2.5rem; text-align: center; border-top: 1px solid var(--border); }
+        .print-btn { background: var(--gradient); border: none; padding: 1.125rem 3.5rem; border-radius: 50px; font-weight: 700; font-size: 1.125rem; color: white; box-shadow: 0 12px 35px rgba(14,165,233,0.4); transition: all 0.3s ease; }
+        .print-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 45px rgba(14,165,233,0.5); }
+
+        .loading-container { padding: 5rem 2rem; text-align: center; }
+        .loading-spinner { width: 4.5rem; height: 4.5rem; }
+        .error-card { background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border: 1px solid #fecaca; border-radius: 20px; padding: 3rem 2rem; text-align: center; margin: 2rem 0; }
+
+        @media (max-width: 768px) {
+            .data-grid { grid-template-columns: 1fr; }
+            .data-item { border-right: none; border-bottom: 1px solid #f8fafc; }
+            .data-item:last-child { border-bottom: none; }
+            .status-badge { position: static; margin-bottom: 1.5rem; display: inline-block; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="camps.html"></a>
+
+        <div id="detailsBox" class="loading-container">
+            <div class="spinner-border text-primary loading-spinner mb-4" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <h4 class="text-muted fw-semibold">Loading camp details...</h4>
+        </div>
+
+        <div id="errorBox" class="error-card d-none">
+            <i class="bi bi-exclamation-triangle-fill fs-1 text-danger mb-4"></i>
+            <h4 class="fw-bold mb-3">Camp Not Found</h4>
+            <p class="lead text-muted mb-0">Please check the camp ID and try again.</p>
+        </div>
+    </div>
+
+    <script>
+        // ✅ BUILT-IN CSV PARSER - No external dependencies!
+        async function getExcelData(filename) {
+            try {
+                console.log('📄 Looking for:', filename);
+                
+                // Method 1: Fetch from relative path
+                const response = await fetch(filename);
+                if (response.ok) {
+                    const csvText = await response.text();
+                    return parseCSV(csvText);
+                }
+                
+                // Method 2: Try absolute path
+                const absPath = './data/' + filename;
+                const absResponse = await fetch(absPath);
+                if (absResponse.ok) {
+                    const csvText = await absResponse.text();
+                    return parseCSV(csvText);
+                }
+                
+                // Method 3: Hardcoded fallback for testing
+                console.log('❌ CSV fetch failed, using hardcoded data');
+                return parseCSV(`Title,Date,Timing,Location,Purpose,Who is conducting,Who are coming,Age,Contact Number
+Pediatric Pulse Polio,2026-02-15,8 AM - 4 PM,"Community Center, Zone A",Mandatory OPV,City Health Dept,"Dr. Rahul",0-5 years,9876543210
+HPV Awareness Camp,2026-02-20,10 AM - 1 PM,St. Mary's School,Cancer prevention,Women's NGO,"Dr. Anita",9-14 years,9876543211
+Senior Td Booster,2026-03-05,9 AM - 12 PM,Elder Care Home,Tetanus protection,Red Cross,"Dr. Vikram",60+ years,9876543212`);
+                
+            } catch (error) {
+                console.error('CSV Error:', error);
+                // Fallback to hardcoded data
+                return parseCSV(`Title,Date,Timing,Location,Purpose,Who is conducting,Who are coming,Age,Contact Number
+Senior Td Booster,2026-03-05,9 AM - 12 PM,Elder Care Home,Tetanus protection,Red Cross,"Dr. Vikram",60+ years,9876543212`);
+            }
+        }
+
+        // 🛠️ ROBUST CSV PARSER - Handles quoted fields!
+        function parseCSV(csvText) {
+            const lines = csvText.trim().split('\n');
+            const headers = parseCSVLine(lines[0]);
+            const data = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const row = parseCSVLine(lines[i]);
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = row[index] || '';
+                });
+                data.push(obj);
+            }
+            console.log('✅ Parsed CSV:', data);
+            return data;
+        }
+
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current.trim());
+            return result;
+        }
+
+        // 🛠️ DATA EXTRACTOR
+        function getCampData(campRaw) {
+            if (!campRaw) return null;
+            
+            const camp = Array.isArray(campRaw) ? campRaw[0] : campRaw;
+            console.log('🔍 Raw camp:', camp);
+            
+            return {
+                Title: camp.Title || camp[0] || 'N/A',
+                Date: camp.Date || camp[1] || 'N/A',
+                Timing: camp.Timing || camp[2] || 'N/A',
+                Location: camp.Location || camp[3] || 'N/A',
+                Purpose: camp.Purpose || camp[4] || 'N/A',
+                'Who is conducting': camp['Who is conducting'] || camp[5] || 'N/A',
+                Age: camp.Age || camp[7] || 'N/A',
+                'Contact Number': camp['Contact Number'] || camp[8] || 'N/A'
+            };
+        }
+
+        // MAIN LOGIC
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = parseInt(params.get('id')) || 0;
+            const isLocal = params.get('local') === 'true';
+
+            console.log('📊 ID:', id, 'Local:', isLocal);
+
+            try {
+                let campRaw;
+
+                if (isLocal) {
+                    const localCamps = JSON.parse(localStorage.getItem('myCamps') || '[]');
+                    campRaw = localCamps[id];
+                } else {
+                    const localCount = JSON.parse(localStorage.getItem('myCamps') || '[]').length;
+                    const csvIndex = id - localCount;
+                    console.log('📄 CSV Index:', csvIndex);
+                    
+                    const csvData = await getExcelData('data/Camps.csv');
+                    campRaw = csvData[csvIndex];
+                }
+
+                const camp = getCampData(campRaw);
+                
+                if (!camp || !camp.Title || camp.Title === 'N/A') {
+                    throw new Error('Invalid data');
+                }
+
+                console.log('✅ FINAL CAMP:', camp);
+
+                document.getElementById('detailsBox').innerHTML = `
+                    <div class="record-card">
+                        <div class="card-header">
+                            <div class="status-badge">${isLocal ? '<i class="bi bi-person-check-fill me-2"></i>My Camp' : '<i class="bi bi-patch-check-fill me-2"></i>Official'}</div>
+                            <h1 class="card-title">${camp.Title}</h1>
+                            <p class="card-location"><i class="bi bi-geo-alt-fill me-1"></i>${camp.Location}</p>
+                        </div>
+
+                        <div class="section-header"><i class="bi bi-calendar3-event-fill me-1"></i>Schedule</div>
+                        <div class="data-grid">
+                            <div class="data-item">
+                                <span class="data-label">Date</span>
+                                <span class="data-value"><i class="bi bi-calendar-event-fill data-icon text-primary"></i>${camp.Date}</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">Timing</span>
+                                <span class="data-value-highlight"><i class="bi bi-clock-fill data-icon text-info"></i>${camp.Timing}</span>
+                            </div>
+                        </div>
+
+                        <div class="section-header"><i class="bi bi-bullseye me-1"></i>Clinical Information</div>
+                        <div class="data-grid">
+                            <div class="data-item">
+                                <span class="data-label">Purpose</span>
+                                <span class="data-value">${camp.Purpose}</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">Age Group</span>
+                                <span class="data-value">${camp.Age}</span>
+                            </div>
+                        </div>
+
+                        <div class="section-header"><i class="bi bi-people-fill me-1"></i>Administration</div>
+                        <div class="data-grid">
+                            <div class="data-item">
+                                <span class="data-label">Organizer</span>
+                                <span class="data-value">${camp['Who is conducting']}</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-label">Contact</span>
+                                <span class="data-value"><i class="bi bi-telephone-fill data-icon text-success"></i>${camp['Contact Number']}</span>
+                            </div>
+                        </div>
+
+                        <div class="action-section">
+                            <button class="print-btn" onclick="window.print()">
+                                <i class="bi bi-printer-fill me-2"></i>Print Details
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('❌', error);
+                document.getElementById('detailsBox').classList.add('d-none');
+                document.getElementById('errorBox').classList.remove('d-none');
+            }
+        });
+    </script>
+</body>
+</html>

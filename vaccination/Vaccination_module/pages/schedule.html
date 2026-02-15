@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Immunization Schedule 2026</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { 
+            --primary: #0ea5e9; 
+            --primary-dark: #0284c7; 
+            --bg-soft: #f8fafc; 
+            --text-main: #1e293b; 
+            --border: #e2e8f0; 
+            --line-height-main: 1.5;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--text-main); 
+            padding-bottom: 50px;
+            line-height: var(--line-height-main);
+        }
+        .header-section { 
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%); 
+            color: white; 
+            padding: 40px 20px; 
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 30px; 
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.3);
+        }
+        .schedule-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .schedule-card { 
+            background: rgba(255, 255, 255, 0.95); 
+            border-radius: 24px; 
+            border: 1px solid rgba(226, 232, 240, 0.8); 
+            padding: 30px; 
+            margin-bottom: 30px; 
+            position: relative; 
+            backdrop-filter: blur(10px);
+            line-height: var(--line-height-main);
+            /* Improved Multi-layer Shadow */
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.08),
+                0 20px 60px rgba(14, 165, 233, 0.12),
+                0 4px 20px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .schedule-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                0 35px 80px rgba(14, 165, 233, 0.25),
+                0 8px 30px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.95);
+        }
+        .age-box {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #e0f2fe 0%, #b4dcff 100%);
+            color: var(--primary-dark);
+            padding: 14px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 24px;
+            box-shadow: 
+                0 8px 25px rgba(14, 165, 233, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(14, 165, 233, 0.3);
+            line-height: var(--line-height-main);
+            position: relative;
+            overflow: hidden;
+        }
+        .age-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(14,165,233,0.8), transparent);
+        }
+        .age-box i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.3);
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+        .vaccination-label { 
+            display: block; 
+            font-size: 0.8rem; 
+            font-weight: 800; 
+            color: #94a3b8; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em; 
+            margin-bottom: 16px;
+            line-height: var(--line-height-main);
+        }
+        .vaccination-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+        .vaccination-tag { 
+            background: rgba(241, 245, 249, 0.8); 
+            color: #334155; 
+            padding: 10px 16px; 
+            border-radius: 16px; 
+            font-weight: 600; 
+            font-size: 0.92rem; 
+            /* REMOVED left border - No more blue line on left */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            line-height: var(--line-height-main);
+            transition: all 0.2s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .vaccination-tag:hover {
+            background: white;
+            box-shadow: 0 8px 25px rgba(14,165,233,0.2);
+            transform: translateY(-2px);
+            border-color: rgba(14,165,233,0.3);
+        }
+        .details-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 20px; 
+            margin-top: 24px; 
+            padding-top: 24px; 
+            border-top: 2px dashed rgba(226, 232, 240, 0.7);
+            line-height: var(--line-height-main);
+        }
+        .detail-item { 
+            display: flex; 
+            flex-direction: column;
+        }
+        .detail-item span { 
+            display: block; 
+            color: #64748b; 
+            font-size: 0.78rem; 
+            font-weight: 600; 
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .detail-item strong {
+            font-size: 1rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+        .remarks-alert { 
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-left: 5px solid #f59e0b; 
+            padding: 18px 24px; 
+            border-radius: 16px; 
+            margin-top: 24px; 
+            font-size: 0.92rem; 
+            color: #92400e;
+            line-height: var(--line-height-main);
+            box-shadow: 
+                0 8px 25px rgba(245, 158, 11, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+        .remarks-alert strong {
+            color: #b45309;
+        }
+        .remarks-alert i {
+            color: #f59e0b;
+        }
+        .condition-badge { 
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 0.75rem; 
+            padding: 8px 16px; 
+            border-radius: 24px; 
+            font-weight: 700; 
+            text-transform: uppercase;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            backdrop-filter: blur(10px);
+        }
+        .bg-mandatory { 
+            background: rgba(220, 252, 231, 0.9); 
+            color: #166534; 
+            border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+        .bg-normal { 
+            background: rgba(240, 249, 255, 0.9); 
+            color: #0c4a6e; 
+            border: 1px solid rgba(14, 165, 233, 0.4);
+        }
+        .bg-regional { 
+            background: rgba(254, 243, 199, 0.9); 
+            color: #92400e; 
+            border: 1px solid rgba(245, 158, 11, 0.5);
+        }
+        .bg-booster { 
+            background: rgba(254, 226, 226, 0.9); 
+            color: #991b1b; 
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+        .bg-recommended { 
+            background: rgba(243, 232, 255, 0.9); 
+            color: #7c3aed; 
+            border: 1px solid rgba(168, 85, 247, 0.5);
+        }
+        @media (max-width: 768px) {
+            .schedule-container {
+                padding: 0 16px;
+            }
+            .schedule-card {
+                margin: 0 0 24px 0;
+                padding: 24px;
+            }
+            .age-box {
+                font-size: 1rem;
+                padding: 12px 20px;
+                margin-bottom: 20px;
+            }
+            .condition-badge {
+                position: static;
+                margin-bottom: 16px;
+                text-align: right;
+            }
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-section">
+    <i class="fas fa-shield-virus fs-1 mb-3 opacity-90"></i>
+    <h1 class="fw-bold mb-2 display-5">National Immunization Schedule</h1>
+    <p class="lead mb-0 opacity-90">Official Guide - India 2026</p>
+</div>
+
+<div class="schedule-container">
+    <div id="scheduleContainer">
+        <div class="text-center text-muted py-5">
+            <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div>Preparing vaccination schedule...</div>
+        </div>
+    </div>
+</div>
+
+<script>
+const csvRawData = `Age Group,Vaccine 1,Vaccine 2,Vaccine 3,Vaccine 4,Vaccine 5,Dose,Route,Remarks,Condition
+"At Birth (0-24 Hours)","BCG (Tuberculosis)","OPV - 0 (Oral Polio)","Hepatitis B - Birth Dose","","","0.1ml / 2 drops / 0.5ml","Intra-dermal / Oral / Intramuscular","BCG & Hepatitis B within 24h; OPV within first 15 days","Mandatory"
+"6 Weeks (1.5 Months)","Pentavalent-1","OPV-1","Rotavirus-1","fIPV-1","PCV-1","0.5ml / 5 drops","Intramuscular / Oral","Part of primary series","Normal"
+"10 Weeks (2.5 Months)","Pentavalent-2","OPV-2","Rotavirus-2","","","0.5ml / 5 drops","Intramuscular / Oral","Second dose primary immunization","Normal"
+"14 Weeks (3.5 Months)","Pentavalent-3","OPV-3","Rotavirus-3","fIPV-2","PCV-2","0.5ml / 5 drops","Intramuscular / Oral","Completes primary series","Normal"
+"9 Months (9-12 Months)","MR-1 (Measles & Rubella)","PCV-Booster","Vitamin A-1","JE-1 (Endemic only)","","0.5ml / Oral","Subcutaneous / Intramuscular / Oral","JE only in endemic districts","Regional"
+"16-24 Months","MR-2","DPT Booster 1","OPV Booster","JE-2 (Endemic)","Vitamin A-2","0.5ml / 2 drops / 2ml","Subcutaneous / Intramuscular / Oral","Second MR and boosters","Normal"
+"5-6 Years","DPT Booster 2","","","","","0.5ml","Intramuscular","School entry booster","Normal"
+"10 Years","Td (Tetanus + low dose diphtheria)","","","","","0.5ml","Intramuscular","Tetanus-diphtheria booster","Booster"
+"16 Years","Td (Tetanus + low dose diphtheria)","","","","","0.5ml","Intramuscular","Adolescent booster","Booster"
+"Pregnant Women","Td-1","Td-2","Td Booster","","","0.5ml","Intramuscular","Maternal immunization","Mandatory"
+"Adults (18+)","COVID-19","Td Booster (Every 10 years)","Hep B (High Risk)","","","Varies","Intramuscular","Adult schedule","Recommended"`;
+
+function parseCSV(text) {
+    const lines = text.split('\n');
+    const headers = lines[0].split(',');
+    
+    return lines.slice(1).map(line => {
+        const matches = line.match(/(".*?"|[^",\\s]+)(?=\s*,|\s*$)/g);
+        if (!matches) return null;
+        
+        const obj = {};
+        headers.forEach((header, i) => {
+            let val = matches[i] || "";
+            obj[header.trim()] = val.replace(/^"|"$/g, '').trim();
+        });
+        return obj;
+    }).filter(x => x);
+}
+
+function render() {
+    const container = document.getElementById('scheduleContainer');
+    const data = parseCSV(csvRawData);
+    container.innerHTML = '';
+
+    data.forEach(row => {
+        const vaccinations = [row['Vaccine 1'], row['Vaccine 2'], row['Vaccine 3'], row['Vaccine 4'], row['Vaccine 5']]
+            .filter(v => v && v !== "");
+
+        const condClass = row['Condition']?.toLowerCase().replace(/ /g, '-') || 'normal';
+        const ageIcon = row['Age Group'].includes('Birth') ? 'fa-baby' : 
+                       row['Age Group'].includes('Pregnant') ? 'fa-person-pregnant' : 
+                       row['Age Group'].includes('Adults') ? 'fa-person' : 'fa-child';
+        
+        const card = document.createElement('div');
+        card.className = 'schedule-card';
+        card.innerHTML = `
+            <span class="condition-badge bg-${condClass}">
+                <i class="fas fa-tag me-1"></i>${row['Condition']}
+            </span>
+            <div class="age-box">
+                <i class="fas ${ageIcon}"></i>
+                ${row['Age Group']}
+            </div>
+            <div>
+                <span class="vaccination-label">Vaccinations Required</span>
+                <div class="vaccination-grid">
+                    ${vaccinations.map(v => `<div class="vaccination-tag">${v}</div>`).join('')}
+                </div>
+            </div>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span>Dose</span>
+                    <strong>${row['Dose']}</strong>
+                </div>
+                <div class="detail-item">
+                    <span>Route</span>
+                    <strong>${row['Route']}</strong>
+                </div>
+            </div>
+            ${row['Remarks'] ? `
+                <div class="remarks-alert">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    <strong>Important:</strong> ${row['Remarks']}
+                </div>
+            ` : ''}
+        `;
+        container.appendChild(card);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', render);
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+Age Group,Vaccine 1,Vaccine 2,Vaccine 3,Vaccine 4,Vaccine 5,Dose,Route,Remarks,Condition
+"At Birth (0-24 Hours)","BCG (Tuberculosis)","OPV - 0 (Oral Polio)","Hepatitis B - Birth Dose","","","0.1ml / 2 drops / 0.5ml","Intra-dermal / Oral / Intramuscular","BCG & Hepatitis B within 24h; OPV within first 15 days","Mandatory"
+"6 Weeks (1.5 Months)","Pentavalent-1","OPV-1","Rotavirus-1","fIPV-1","PCV-1","0.5ml / 5 drops","Intramuscular / Oral","Part of primary series","Normal"
+"10 Weeks (2.5 Months)","Pentavalent-2","OPV-2","Rotavirus-2","","","0.5ml / 5 drops","Intramuscular / Oral","Second dose primary immunization","Normal"
+"14 Weeks (3.5 Months)","Pentavalent-3","OPV-3","Rotavirus-3","fIPV-2","PCV-2","0.5ml / 5 drops","Intramuscular / Oral","Completes primary series","Normal"
+"9 Months (9-12 Months)","MR-1 (Measles & Rubella)","PCV-Booster","Vitamin A-1","JE-1 (Endemic only)","","0.5ml / Oral","Subcutaneous / Intramuscular / Oral","JE only in endemic districts","Regional"
+"16-24 Months","MR-2","DPT Booster 1","OPV Booster","JE-2 (Endemic)","Vitamin A-2","0.5ml / 2 drops / 2ml","Subcutaneous / Intramuscular / Oral","Second MR and boosters","Normal"
+"5-6 Years","DPT Booster 2","","","","","0.5ml","Intramuscular","School entry booster","Normal"
+"10 Years","Td (Tetanus + low dose diphtheria)","","","","","0.5ml","Intramuscular","Tetanus-diphtheria booster","Booster"
+"16 Years","Td (Tetanus + low dose diphtheria)","","","","","0.5ml","Intramuscular","Adolescent booster","Booster"
+"Pregnant Women","Td-1","Td-2","Td Booster","","","0.5ml","Intramuscular","Maternal immunization","Mandatory"
+"Adults (18+)","COVID-19","Td Booster (Every 10 years)","Hep B (High Risk)","","","Varies","Intramuscular","Adult schedule","Recommended"

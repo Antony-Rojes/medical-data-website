@@ -21,15 +21,38 @@
             --medical-gradient: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
         .main-wrapper {
             min-height: 100vh;
             background: var(--page-bg);
         }
 
+        /* =========================
+           HEADER SECTION - RESPONSIVE FIX
+        ========================= */
         .page-header {
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 20px;
             margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .header-text {
+            flex: 1;
         }
 
         .add-btn {
@@ -40,6 +63,8 @@
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(14,165,233,0.25);
             transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .add-btn:hover {
@@ -47,6 +72,9 @@
             box-shadow: 0 12px 28px rgba(14,165,233,0.35);
         }
 
+        /* =========================
+           CAMP CARDS
+        ========================= */
         .camp-card {
             border-radius: 16px;
             padding: 24px;
@@ -54,6 +82,7 @@
             transition: all 0.3s ease;
             border: 1px solid #e2e8f0;
             cursor: pointer;
+            background: white;
         }
 
         .camp-card:hover {
@@ -62,11 +91,168 @@
             border-color: #0ea5e9;
         }
 
-        /* Form Validation Styles */
-        .form-invalid { border-color: #ef4444 !important; box-shadow: 0 0 0 0.2rem rgba(239,68,68,0.25) !important; }
-        .form-valid { border-color: #10b981 !important; box-shadow: 0 0 0 0.2rem rgba(16,185,129,0.25) !important; }
-        .error-message { color: #ef4444; font-size: 0.875rem; margin-top: 0.25rem; display: block; }
-        .success-message { color: #10b981; font-size: 0.875rem; margin-top: 0.25rem; }
+        /* =========================
+           FORM VALIDATION STYLES
+        ========================= */
+        .form-invalid { 
+            border-color: #ef4444 !important; 
+            box-shadow: 0 0 0 0.2rem rgba(239,68,68,0.25) !important; 
+        }
+        
+        .form-valid { 
+            border-color: #10b981 !important; 
+            box-shadow: 0 0 0 0.2rem rgba(16,185,129,0.25) !important; 
+        }
+        
+        .error-message { 
+            color: #ef4444; 
+            font-size: 0.875rem; 
+            margin-top: 0.25rem; 
+            display: block; 
+        }
+        
+        .success-message { 
+            color: #10b981; 
+            font-size: 0.875rem; 
+            margin-top: 0.25rem; 
+        }
+
+        /* =========================
+           RESPONSIVE BREAKPOINTS
+        ========================= */
+
+        /* Tablet */
+        @media (max-width: 991px) {
+            .main-wrapper {
+                flex-direction: column;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1.5rem;
+            }
+
+            .add-btn {
+                width: 100%;
+                justify-content: center;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+            .flex-grow-1 {
+                padding: 1.5rem !important;
+            }
+
+            .page-header {
+                padding-bottom: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .header-text h1 {
+                font-size: 1.75rem !important;
+            }
+
+            .header-text p {
+                font-size: 0.9rem;
+            }
+
+            .add-btn {
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+
+            .camp-card {
+                padding: 20px;
+                border-radius: 14px;
+            }
+
+            .camp-card h5 {
+                font-size: 1.1rem;
+            }
+
+            .modal-body {
+                padding: 1.5rem !important;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .flex-grow-1 {
+                padding: 1rem !important;
+            }
+
+            .page-header {
+                gap: 1rem;
+            }
+
+            .header-text h1 {
+                font-size: 1.5rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            .header-text p {
+                font-size: 0.85rem;
+            }
+
+            .add-btn {
+                padding: 12px 18px;
+                font-size: 14px;
+            }
+
+            .add-btn i {
+                font-size: 0.9rem;
+            }
+
+            .camp-card {
+                padding: 16px;
+                border-radius: 12px;
+            }
+
+            .camp-card h5 {
+                font-size: 1rem;
+            }
+
+            .camp-card .small {
+                font-size: 0.8rem !important;
+            }
+
+            .modal-dialog {
+                margin: 0.5rem;
+            }
+
+            .modal-body {
+                padding: 1rem !important;
+            }
+
+            .form-label {
+                font-size: 0.9rem;
+            }
+
+            .form-control {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.75rem;
+            }
+        }
+
+        /* Extra Small */
+        @media (max-width: 360px) {
+            .header-text h1 {
+                font-size: 1.3rem !important;
+            }
+
+            .add-btn {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .camp-card {
+                padding: 14px;
+            }
+        }
     </style>
 </head>
 
@@ -81,9 +267,9 @@
 
     <!-- Main Content -->
     <div class="flex-grow-1 p-5">
-        <!-- Header Section -->
-        <div class="d-flex justify-content-between align-items-center page-header">
-            <div>
+        <!-- Header Section - FIXED STRUCTURE -->
+        <div class="page-header">
+            <div class="header-text">
                 <h1 class="fw-bold display-6 mb-1">Active Vaccination Camps</h1>
                 <p class="text-muted mb-0">Explore upcoming health camps or register a new one.</p>
             </div>
@@ -182,7 +368,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    // 🆕 COMPLETE CAMP HANDLER WITH ALL 9 CSV FIELDS
+    // 🆕 COMPLETE CAMP HANDLER WITH ALL 9 CSV FIELDS (FROM CODE 1)
     document.addEventListener('DOMContentLoaded', async () => {
         const container = document.getElementById('campsContainer');
         
@@ -190,7 +376,7 @@
             // Load CSV data (with fallback)
             let csvData = [];
             try {
-                csvData = await getExcelData('data/Camps.csv');
+                csvData = await getExcelData('../data/Camps.csv');
             } catch (e) {
                 console.log('Using hardcoded CSV data');
                 csvData = parseCSV(`Title,Date,Timing,Location,Purpose,Who is conducting,Who are coming,Age,Contact Number
@@ -260,7 +446,7 @@ Senior Td Booster,2026-03-05,9 AM - 12 PM,Elder Care Home,Tetanus protection,Red
         }
     });
 
-    // 🆕 COMPLETE FORM VALIDATION + SAVE FUNCTION
+    // 🆕 COMPLETE FORM VALIDATION + SAVE FUNCTION (FROM CODE 1)
     function saveCamp() {
         // Clear previous errors
         clearFormErrors();
@@ -306,7 +492,10 @@ Senior Td Booster,2026-03-05,9 AM - 12 PM,Elder Care Home,Tetanus protection,Red
 
         // Validate date (not in past)
         const campDate = new Date(document.getElementById('cDate').value);
-        if (campDate < new Date().toISOString().split('T')[0]) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        if (campDate < today) {
             showFieldError('cDate', 'Date cannot be in the past');
             isValid = false;
         }
@@ -386,6 +575,14 @@ Senior Td Booster,2026-03-05,9 AM - 12 PM,Elder Care Home,Tetanus protection,Red
             data.push(obj);
         }
         return data;
+    }
+
+    // getExcelData function (assumes it's in main.css or define it here)
+    async function getExcelData(url) {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Failed to fetch CSV');
+        const text = await response.text();
+        return parseCSV(text);
     }
 
     // Form field listeners for real-time validation

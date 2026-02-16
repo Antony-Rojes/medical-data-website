@@ -20,16 +20,59 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: #f8fafc;
   padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
+/* =========================
+   CUSTOM SCROLLBAR
+========================= */
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #e63946 #f1f5f9;
+}
+
+/* For Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #e63946 0%, #d62828 100%);
+  border-radius: 10px;
+  border: 2px solid #f8fafc;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #d62828 0%, #b71c1c 100%);
+}
+
+/* =========================
+   TITLE
+========================= */
 
 .title {
   text-align: center;
-  font-size: clamp(28px, 5vw, 42px);
+  font-size: clamp(24px, 5vw, 42px);
   font-weight: 700;
   margin: 20px 0 40px;
   color: var(--text-dark);
@@ -50,6 +93,10 @@ body {
   border-radius: 2px;
 }
 
+/* =========================
+   HEADER BAR
+========================= */
+
 .header-bar {
   background: linear-gradient(135deg, #ff9a56, #ff6b6b);
   color: white;
@@ -66,6 +113,7 @@ body {
   justify-content: center;
   gap: 12px;
   margin-bottom: 8px;
+  flex-wrap: wrap;
 }
 
 .step-circle {
@@ -80,6 +128,7 @@ body {
   font-size: 14px;
   color: #666;
   position: relative;
+  flex-shrink: 0;
 }
 
 .step-circle.active {
@@ -92,6 +141,7 @@ body {
   width: 24px;
   height: 2px;
   background: #e0e0e0;
+  flex-shrink: 0;
 }
 
 .step-circle.active ~ .step-line,
@@ -109,10 +159,14 @@ body {
 
 .header-title {
   font-family: 'Exo 2', 'Orbitron', 'Poppins', sans-serif;
-  font-size: clamp(22px, 4vw, 32px);
+  font-size: clamp(20px, 4vw, 32px);
   font-weight: 800;
   letter-spacing: -0.01em;
 }
+
+/* =========================
+   DASHBOARD
+========================= */
 
 .dashboard {
   display: grid;
@@ -177,6 +231,10 @@ body {
   margin: auto 0;
 }
 
+/* =========================
+   PAGE & TEXT
+========================= */
+
 .text {
   font-family: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -196,14 +254,16 @@ body {
 .page-title {
   font-family: 'Playfair Display', 'Lora', serif;
   text-align: center;
-  font-size: clamp(28px, 5vw, 44px);
+  font-size: clamp(24px, 5vw, 44px);
   font-weight: 800;
+  position: relative;
+  margin-bottom: 40px;
 }
 
 .page-title::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
   width: 100px;
@@ -211,6 +271,10 @@ body {
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   border-radius: 2px;
 }
+
+/* =========================
+   CARD
+========================= */
 
 .card {
   background: white;
@@ -231,6 +295,10 @@ body {
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--success-color));
 }
 
+/* =========================
+   PROGRESS BAR
+========================= */
+
 .progress-bar {
   width: 100%;
   height: 8px;
@@ -246,6 +314,11 @@ body {
   transition: width 0.4s ease;
   border-radius: 10px;
 }
+
+/* =========================
+   SLIDES
+========================= */
+
 .slide-content-wrapper {
   display: flex;
   flex-direction: column;
@@ -283,6 +356,10 @@ body {
     transform: translateY(0);
   }
 }
+
+/* =========================
+   IMAGE CONTAINER
+========================= */
 
 .image-container {
   width: 100%;
@@ -337,6 +414,10 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
+/* =========================
+   TEXT CONTENT
+========================= */
+
 .text {
   width: 100%;
   font-size: 18px;
@@ -376,8 +457,13 @@ body {
   mask-composite: exclude;
 }
 
+/* =========================
+   AUDIO PLAYER
+========================= */
+
 audio {
   width: 100%;
+  max-width: 100%;
   margin-top: 30px;
   border-radius: 12px;
   outline: none;
@@ -389,6 +475,10 @@ audio::-webkit-media-controls-panel {
   border-radius: 12px;
 }
 
+/* =========================
+   STEP COUNTER
+========================= */
+
 .step-counter {
   text-align: center;
   margin-bottom: 25px;
@@ -399,12 +489,17 @@ audio::-webkit-media-controls-panel {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .step-counter .current {
   color: var(--primary-color);
   font-size: 24px;
 }
+
+/* =========================
+   CONTROLS & BUTTONS
+========================= */
 
 .controls {
   margin-top: 30px;
@@ -475,6 +570,10 @@ button.secondary {
   transform: translateX(-5px);
 }
 
+/* =========================
+   LOADING SPINNER
+========================= */
+
 .loading {
   display: inline-block;
   width: 20px;
@@ -491,11 +590,19 @@ button.secondary {
   }
 }
 
+/* =========================
+   RESPONSIVE - DESKTOP
+========================= */
+
 @media (min-width: 1200px) {
   .image-container {
     padding-bottom: 58%;
   }
 }
+
+/* =========================
+   RESPONSIVE - TABLET
+========================= */
 
 @media (min-width: 768px) and (max-width: 1199px) {
   .image-container {
@@ -505,11 +612,30 @@ button.secondary {
   .slide-content-wrapper {
     max-width: 700px;
   }
+  
+  .dashboard {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    padding: 16px;
+  }
+  
+  .card {
+    padding: 32px;
+  }
+  
+  .text {
+    font-size: 17px;
+    padding: 24px;
+  }
 }
+
+/* =========================
+   RESPONSIVE - MOBILE
+========================= */
 
 @media (max-width: 767px) {
   body {
-    padding: 15px;
+    padding: 12px;
   }
 
   .slide.active {
@@ -533,13 +659,32 @@ button.secondary {
     padding: 20px;
   }
 
+  .text p {
+    font-size: 16px;
+  }
+
   .card {
-    padding: 25px;
+    padding: 24px;
+    border-radius: 20px;
   }
 
   .dashboard {
     grid-template-columns: 1fr;
     gap: 20px;
+    padding: 12px;
+  }
+  
+  .dashboard .card {
+    min-height: 280px;
+  }
+  
+  .dashboard .card img {
+    height: 180px;
+  }
+  
+  .dashboard .card p {
+    font-size: 20px;
+    padding: 24px;
   }
 
   .controls {
@@ -550,21 +695,58 @@ button.secondary {
   button {
     width: 100%;
     max-width: 300px;
+    padding: 12px 24px;
   }
   
   .slide-content-wrapper {
     max-width: 100%;
-    gap: 25px;
+    gap: 24px;
+  }
+  
+  .header-bar {
+    padding: 12px 16px;
+    border-radius: 12px;
+  }
+  
+  .step-indicator {
+    gap: 8px;
+  }
+  
+  .step-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+  }
+  
+  .step-line {
+    width: 16px;
+  }
+  
+  .title {
+    margin: 16px 0 32px;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 6px;
   }
 }
 
+/* =========================
+   RESPONSIVE - SMALL MOBILE
+========================= */
+
 @media (max-width: 480px) {
   body {
-    padding: 10px;
+    padding: 8px;
+  }
+
+  .page {
+    padding: 12px;
   }
 
   .page-title {
-    font-size: 24px;
+    font-size: 22px;
+    margin-bottom: 32px;
   }
 
   .card {
@@ -574,26 +756,143 @@ button.secondary {
 
   .image-container {
     padding-bottom: 85%;
+    border-radius: 16px;
   }
   
   .text {
     font-size: 15px;
-    padding: 18px;
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  .text p {
+    font-size: 15px;
+    line-height: 1.6;
   }
   
   .step-counter {
-    font-size: 14px;
+    font-size: 13px;
   }
   
   .step-counter .current {
-    font-size: 20px;
+    font-size: 18px;
   }
   
   button {
-    padding: 12px 24px;
+    padding: 12px 20px;
     font-size: 15px;
+    min-width: 120px;
+    border-radius: 10px;
+  }
+  
+  .dashboard {
+    gap: 16px;
+    padding: 8px;
+  }
+  
+  .dashboard .card {
+    min-height: 240px;
+    border-radius: 16px;
+  }
+  
+  .dashboard .card img {
+    height: 160px;
+  }
+  
+  .dashboard .card p {
+    font-size: 18px;
+    padding: 20px;
+  }
+  
+  .header-bar {
+    padding: 10px 12px;
+    margin-bottom: 12px;
+  }
+  
+  .header-title {
+    font-size: 18px;
+  }
+  
+  .step-circle {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+  
+  .step-line {
+    width: 12px;
+  }
+  
+  .step-label {
+    font-size: 12px;
+  }
+  
+  .slide.active {
+    gap: 24px;
+  }
+  
+  audio {
+    margin-top: 20px;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 4px;
   }
 }
+
+/* =========================
+   RESPONSIVE - EXTRA SMALL
+========================= */
+
+@media (max-width: 360px) {
+  body {
+    padding: 6px;
+  }
+  
+  .page-title {
+    font-size: 20px;
+  }
+  
+  .title {
+    font-size: 22px;
+  }
+  
+  .card {
+    padding: 16px;
+  }
+  
+  .text {
+    font-size: 14px;
+    padding: 14px;
+  }
+  
+  .text p {
+    font-size: 14px;
+  }
+  
+  button {
+    padding: 10px 18px;
+    font-size: 14px;
+    min-width: 100px;
+  }
+  
+  .dashboard .card p {
+    font-size: 16px;
+    padding: 16px;
+  }
+  
+  .header-title {
+    font-size: 16px;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+}
+
+/* =========================
+   ACCESSIBILITY
+========================= */
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -602,6 +901,7 @@ button.secondary {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
@@ -609,4 +909,26 @@ button:focus-visible,
 a:focus-visible {
   outline: 3px solid var(--primary-color);
   outline-offset: 3px;
+}
+
+/* =========================
+   LANDSCAPE MODE
+========================= */
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .image-container {
+    padding-bottom: 45%;
+  }
+  
+  .slide.active {
+    gap: 24px;
+  }
+  
+  .card {
+    padding: 20px;
+  }
+  
+  .text {
+    padding: 16px;
+  }
 }

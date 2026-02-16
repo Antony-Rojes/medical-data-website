@@ -16,13 +16,27 @@
             --border: #e2e8f0; 
             --line-height-main: 1.5;
         }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            overflow-x: hidden;
+        }
+        
         body { 
             font-family: 'Inter', sans-serif; 
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             color: var(--text-main); 
             padding-bottom: 50px;
             line-height: var(--line-height-main);
+            overflow-x: hidden;
         }
+        
+        /* =========================
+           HEADER SECTION
+        ========================= */
         .header-section { 
             background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%); 
             color: white; 
@@ -32,11 +46,16 @@
             text-align: center;
             box-shadow: 0 20px 40px rgba(14, 165, 233, 0.3);
         }
+        
         .schedule-container {
             max-width: 900px;
             margin: 0 auto;
             padding: 0 20px;
         }
+        
+        /* =========================
+           SCHEDULE CARD
+        ========================= */
         .schedule-card { 
             background: rgba(255, 255, 255, 0.95); 
             border-radius: 24px; 
@@ -46,7 +65,6 @@
             position: relative; 
             backdrop-filter: blur(10px);
             line-height: var(--line-height-main);
-            /* Improved Multi-layer Shadow */
             box-shadow: 
                 0 10px 30px rgba(0, 0, 0, 0.08),
                 0 20px 60px rgba(14, 165, 233, 0.12),
@@ -54,6 +72,7 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.9);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
         .schedule-card:hover {
             transform: translateY(-8px);
             box-shadow: 
@@ -62,40 +81,99 @@
                 0 8px 30px rgba(0, 0, 0, 0.08),
                 inset 0 1px 0 rgba(255, 255, 255, 0.95);
         }
-        .age-box {
+        
+        /* =========================
+           VACCINATION TIME SECTION
+        ========================= */
+        .vaccination-time-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        /* Mandatory Badge */
+        .mandatory-badge {
             display: inline-flex;
             align-items: center;
-            background: linear-gradient(135deg, #e0f2fe 0%, #b4dcff 100%);
-            color: var(--primary-dark);
-            padding: 14px 24px;
+            gap: 6px;
+            padding: 6px 14px;
             border-radius: 20px;
+            font-size: 0.75rem;
             font-weight: 700;
-            font-size: 1.05rem;
-            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: fit-content;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mandatory-badge.bg-mandatory {
+            background: rgba(220, 252, 231, 0.9);
+            color: #166534;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        .mandatory-badge.bg-normal {
+            background: rgba(240, 249, 255, 0.9);
+            color: #0c4a6e;
+            border: 1px solid rgba(14, 165, 233, 0.4);
+        }
+        
+        .mandatory-badge.bg-regional {
+            background: rgba(254, 243, 199, 0.9);
+            color: #92400e;
+            border: 1px solid rgba(245, 158, 11, 0.5);
+        }
+        
+        .mandatory-badge.bg-booster {
+            background: rgba(254, 226, 226, 0.9);
+            color: #991b1b;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+        
+        .mandatory-badge.bg-recommended {
+            background: rgba(243, 232, 255, 0.9);
+            color: #7c3aed;
+            border: 1px solid rgba(168, 85, 247, 0.5);
+        }
+        
+        .mandatory-badge i {
+            font-size: 0.875rem;
+        }
+        
+        /* Vaccination Time Box */
+        .vaccination-time-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #e0f2fe 0%, #b4dcff 100%);
+            padding: 14px 20px;
+            border-radius: 20px;
+            border: 2px solid rgba(14, 165, 233, 0.3);
             box-shadow: 
                 0 8px 25px rgba(14, 165, 233, 0.25),
                 inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            border: 2px solid rgba(14, 165, 233, 0.3);
+        }
+        
+        .vaccination-time-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 6px 10px;
+            border-radius: 10px;
+        }
+        
+        .vaccination-time-text {
+            color: var(--primary-dark);
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin: 0;
             line-height: var(--line-height-main);
-            position: relative;
-            overflow: hidden;
         }
-        .age-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(14,165,233,0.8), transparent);
-        }
-        .age-box i {
-            margin-right: 10px;
-            font-size: 1.2rem;
-            background: rgba(255,255,255,0.3);
-            padding: 4px 8px;
-            border-radius: 8px;
-        }
+        
+        /* =========================
+           VACCINATION LABELS & TAGS
+        ========================= */
         .vaccination-label { 
             display: block; 
             font-size: 0.8rem; 
@@ -106,12 +184,14 @@
             margin-bottom: 16px;
             line-height: var(--line-height-main);
         }
+        
         .vaccination-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 24px;
         }
+        
         .vaccination-tag { 
             background: rgba(241, 245, 249, 0.8); 
             color: #334155; 
@@ -119,19 +199,23 @@
             border-radius: 16px; 
             font-weight: 600; 
             font-size: 0.92rem; 
-            /* REMOVED left border - No more blue line on left */
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             line-height: var(--line-height-main);
             transition: all 0.2s ease;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(226, 232, 240, 0.5);
         }
+        
         .vaccination-tag:hover {
             background: white;
             box-shadow: 0 8px 25px rgba(14,165,233,0.2);
             transform: translateY(-2px);
             border-color: rgba(14,165,233,0.3);
         }
+        
+        /* =========================
+           DETAILS GRID
+        ========================= */
         .details-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
@@ -141,10 +225,12 @@
             border-top: 2px dashed rgba(226, 232, 240, 0.7);
             line-height: var(--line-height-main);
         }
+        
         .detail-item { 
             display: flex; 
             flex-direction: column;
         }
+        
         .detail-item span { 
             display: block; 
             color: #64748b; 
@@ -154,11 +240,16 @@
             text-transform: uppercase;
             letter-spacing: 0.03em;
         }
+        
         .detail-item strong {
             font-size: 1rem;
             color: var(--text-main);
             font-weight: 700;
         }
+        
+        /* =========================
+           REMARKS ALERT
+        ========================= */
         .remarks-alert { 
             background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
             border-left: 5px solid #f59e0b; 
@@ -172,70 +263,199 @@
                 0 8px 25px rgba(245, 158, 11, 0.15),
                 inset 0 1px 0 rgba(255, 255, 255, 0.9);
         }
+        
         .remarks-alert strong {
             color: #b45309;
         }
+        
         .remarks-alert i {
             color: #f59e0b;
         }
-        .condition-badge { 
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            font-size: 0.75rem; 
-            padding: 8px 16px; 
-            border-radius: 24px; 
-            font-weight: 700; 
-            text-transform: uppercase;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-            backdrop-filter: blur(10px);
+        
+        /* =========================
+           RESPONSIVE - TABLET
+        ========================= */
+        @media (max-width: 991px) {
+            .schedule-container {
+                padding: 0 18px;
+            }
+            
+            .schedule-card {
+                padding: 26px;
+            }
+            
+            .vaccination-time-box {
+                padding: 12px 18px;
+            }
+            
+            .vaccination-time-text {
+                font-size: 1rem;
+            }
         }
-        .bg-mandatory { 
-            background: rgba(220, 252, 231, 0.9); 
-            color: #166534; 
-            border: 1px solid rgba(34, 197, 94, 0.5);
-        }
-        .bg-normal { 
-            background: rgba(240, 249, 255, 0.9); 
-            color: #0c4a6e; 
-            border: 1px solid rgba(14, 165, 233, 0.4);
-        }
-        .bg-regional { 
-            background: rgba(254, 243, 199, 0.9); 
-            color: #92400e; 
-            border: 1px solid rgba(245, 158, 11, 0.5);
-        }
-        .bg-booster { 
-            background: rgba(254, 226, 226, 0.9); 
-            color: #991b1b; 
-            border: 1px solid rgba(239, 68, 68, 0.4);
-        }
-        .bg-recommended { 
-            background: rgba(243, 232, 255, 0.9); 
-            color: #7c3aed; 
-            border: 1px solid rgba(168, 85, 247, 0.5);
-        }
-        @media (max-width: 768px) {
+        
+        /* =========================
+           RESPONSIVE - MOBILE
+        ========================= */
+        @media (max-width: 767px) {
+            .header-section {
+                padding: 32px 16px;
+                border-radius: 0 0 24px 24px;
+            }
+            
+            .header-section h1 {
+                font-size: 1.75rem;
+            }
+            
+            .header-section .lead {
+                font-size: 1rem;
+            }
+            
             .schedule-container {
                 padding: 0 16px;
             }
+            
             .schedule-card {
                 margin: 0 0 24px 0;
                 padding: 24px;
+                border-radius: 20px;
             }
-            .age-box {
-                font-size: 1rem;
-                padding: 12px 20px;
+            
+            .vaccination-time-section {
+                gap: 10px;
                 margin-bottom: 20px;
             }
-            .condition-badge {
-                position: static;
-                margin-bottom: 16px;
-                text-align: right;
+            
+            .mandatory-badge {
+                padding: 5px 12px;
+                font-size: 0.7rem;
             }
+            
+            .vaccination-time-box {
+                padding: 12px 16px;
+                gap: 8px;
+                border-radius: 16px;
+            }
+            
+            .vaccination-time-icon {
+                font-size: 1.2rem;
+                padding: 4px 8px;
+            }
+            
+            .vaccination-time-text {
+                font-size: 0.95rem;
+            }
+            
+            .vaccination-grid {
+                gap: 8px;
+            }
+            
+            .vaccination-tag {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+                border-radius: 12px;
+            }
+            
             .details-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
+            }
+            
+            .remarks-alert {
+                padding: 14px 18px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* =========================
+           RESPONSIVE - SMALL MOBILE
+        ========================= */
+        @media (max-width: 480px) {
+            .header-section {
+                padding: 28px 12px;
+            }
+            
+            .header-section h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header-section .lead {
+                font-size: 0.9rem;
+            }
+            
+            .schedule-container {
+                padding: 0 12px;
+            }
+            
+            .schedule-card {
+                padding: 20px;
+                border-radius: 16px;
+            }
+            
+            .vaccination-time-section {
+                gap: 8px;
+            }
+            
+            .mandatory-badge {
+                padding: 4px 10px;
+                font-size: 0.65rem;
+                gap: 4px;
+            }
+            
+            .vaccination-time-box {
+                padding: 10px 14px;
+            }
+            
+            .vaccination-time-icon {
+                font-size: 1.1rem;
+            }
+            
+            .vaccination-time-text {
+                font-size: 0.9rem;
+            }
+            
+            .vaccination-label {
+                font-size: 0.75rem;
+            }
+            
+            .vaccination-tag {
+                padding: 7px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .detail-item span {
+                font-size: 0.7rem;
+            }
+            
+            .detail-item strong {
+                font-size: 0.9rem;
+            }
+            
+            .remarks-alert {
+                padding: 12px 16px;
+                font-size: 0.8rem;
+                border-left-width: 4px;
+            }
+        }
+        
+        /* =========================
+           RESPONSIVE - EXTRA SMALL
+        ========================= */
+        @media (max-width: 360px) {
+            .schedule-card {
+                padding: 16px;
+            }
+            
+            .vaccination-time-box {
+                padding: 8px 12px;
+            }
+            
+            .vaccination-time-text {
+                font-size: 0.85rem;
+            }
+            
+            .vaccination-tag {
+                padding: 6px 10px;
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -300,26 +520,32 @@ function render() {
             .filter(v => v && v !== "");
 
         const condClass = row['Condition']?.toLowerCase().replace(/ /g, '-') || 'normal';
-        const ageIcon = row['Age Group'].includes('Birth') ? 'fa-baby' : 
-                       row['Age Group'].includes('Pregnant') ? 'fa-person-pregnant' : 
-                       row['Age Group'].includes('Adults') ? 'fa-person' : 'fa-child';
+        const ageIcon = row['Age Group'].includes('Birth') ? '👶' : 
+                       row['Age Group'].includes('Pregnant') ? '🤰' : 
+                       row['Age Group'].includes('Adults') ? '👤' : '🧒';
         
         const card = document.createElement('div');
         card.className = 'schedule-card';
         card.innerHTML = `
-            <span class="condition-badge bg-${condClass}">
-                <i class="fas fa-tag me-1"></i>${row['Condition']}
-            </span>
-            <div class="age-box">
-                <i class="fas ${ageIcon}"></i>
-                ${row['Age Group']}
+            <div class="vaccination-time-section">
+                <span class="mandatory-badge bg-${condClass}">
+                    <i class="fas fa-shield-check"></i>
+                    ${row['Condition'].toUpperCase()}
+                </span>
+                
+                <div class="vaccination-time-box">
+                    <span class="vaccination-time-icon">${ageIcon}</span>
+                    <p class="vaccination-time-text">${row['Age Group']}</p>
+                </div>
             </div>
+            
             <div>
                 <span class="vaccination-label">Vaccinations Required</span>
                 <div class="vaccination-grid">
                     ${vaccinations.map(v => `<div class="vaccination-tag">${v}</div>`).join('')}
                 </div>
             </div>
+            
             <div class="details-grid">
                 <div class="detail-item">
                     <span>Dose</span>
@@ -330,6 +556,7 @@ function render() {
                     <strong>${row['Route']}</strong>
                 </div>
             </div>
+            
             ${row['Remarks'] ? `
                 <div class="remarks-alert">
                     <i class="fas fa-lightbulb me-2"></i>

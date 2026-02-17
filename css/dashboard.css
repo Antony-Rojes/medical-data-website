@@ -317,3 +317,463 @@ body {
     margin-bottom: 20px;
   }
 }
+
+/* =========================
+   GRID LAYOUT OVERRIDE
+========================= */
+
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* =========================
+   FEATURED HERO CARD
+========================= */
+
+.card-featured {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  padding: 0;
+  overflow: hidden;
+  border: none;
+  background: linear-gradient(135deg, #0EA5E9 0%, #2563EB 60%, #06B6D4 100%);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(14, 165, 233, 0.35);
+  text-decoration: none;
+  display: block;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-featured:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 32px 80px rgba(14, 165, 233, 0.45);
+  border-color: transparent;
+}
+
+/* Animated background circles */
+.card-featured-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.card-featured-bg::before {
+  content: '';
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  top: -100px;
+  right: -80px;
+}
+
+.card-featured-bg::after {
+  content: '';
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  bottom: -60px;
+  left: 200px;
+}
+
+.card-featured-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 48px;
+}
+
+/* Left side */
+.card-featured-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.card-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: #4ADE80;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.3);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.card-featured .card-icon {
+  font-size: 44px;
+  margin-bottom: 16px;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.card-featured h3 {
+  font-family: 'Lexend', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.card-featured p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+}
+
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  color: #0EA5E9;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.card-featured:hover .card-cta {
+  background: #F0F9FF;
+  transform: translateX(4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* Right side - Chat Preview */
+.card-featured-right {
+  flex-shrink: 0;
+  width: 300px;
+}
+
+.chat-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 20px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.chat-bubble {
+  padding: 10px 16px;
+  border-radius: 16px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  max-width: 90%;
+  font-weight: 500;
+}
+
+.chat-bubble.bot {
+  background: rgba(255, 255, 255, 0.9);
+  color: #0F172A;
+  border-bottom-left-radius: 4px;
+  align-self: flex-start;
+}
+
+.chat-bubble.user {
+  background: rgba(14, 165, 233, 0.7);
+  color: white;
+  border-bottom-right-radius: 4px;
+  align-self: flex-end;
+  backdrop-filter: blur(8px);
+}
+
+/* =========================
+   SUB GRID
+========================= */
+
+.dashboard-sub-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+/* =========================
+   SUB CARDS
+========================= */
+
+.card-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 28px 24px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-sub::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  border-radius: 0 0 20px 20px;
+}
+
+.card-sub:hover::after {
+  transform: scaleX(1);
+}
+
+.card-sub:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(14, 165, 233, 0.18);
+  border-color: var(--primary-light);
+}
+
+.card-icon-wrap {
+  width: 52px;
+  height: 52px;
+  background: var(--icon-bg);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.card-sub:hover .card-icon-wrap {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.card-sub-content {
+  flex: 1;
+}
+
+.card-sub-content h3 {
+  font-family: 'Lexend', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  margin-top: 0;
+  color: var(--text-primary);
+}
+
+.card-sub-content p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.card-arrow {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: var(--primary);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.3s ease;
+  font-weight: 700;
+}
+
+.card-sub:hover .card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* =========================
+   TABLET (≤ 992px)
+========================= */
+@media (max-width: 992px) {
+  .dashboard-sub-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .card-featured-content {
+    padding: 32px 36px;
+    gap: 28px;
+  }
+
+  .card-featured-right {
+    width: 240px;
+  }
+
+  .card-featured h3 {
+    font-size: 1.5rem;
+  }
+
+  .card-featured p {
+    font-size: 0.95rem;
+  }
+}
+
+/* =========================
+   MOBILE (≤ 768px)
+========================= */
+@media (max-width: 768px) {
+  .card-featured-content {
+    flex-direction: column;
+    padding: 28px 24px;
+    gap: 24px;
+  }
+
+  .card-featured-right {
+    width: 100%;
+  }
+
+  .card-featured h3 {
+    font-size: 1.35rem;
+  }
+
+  .card-featured p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .card-featured .card-icon {
+    font-size: 36px;
+  }
+
+  .card-cta {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .dashboard-sub-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .card-sub {
+    padding: 22px 18px;
+  }
+
+  .card-icon-wrap {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    border-radius: 12px;
+  }
+
+  .card-sub-content h3 {
+    font-size: 0.95rem;
+  }
+
+  .card-sub-content p {
+    font-size: 0.78rem;
+  }
+}
+
+/* =========================
+   SMALL MOBILE (≤ 480px)
+========================= */
+@media (max-width: 480px) {
+  .card-featured-content {
+    padding: 24px 20px;
+  }
+
+  .card-featured h3 {
+    font-size: 1.2rem;
+  }
+
+  .card-badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+
+  .chat-preview {
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .chat-bubble {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+  }
+
+  .dashboard-sub-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .card-sub {
+    padding: 18px 14px;
+    border-radius: 16px;
+  }
+
+  .card-icon-wrap {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .card-sub-content h3 {
+    font-size: 0.88rem;
+  }
+
+  .card-sub-content p {
+    display: none;
+  }
+
+  .card-arrow {
+    margin-top: 12px;
+    opacity: 1;
+    transform: none;
+    font-size: 1rem;
+  }
+}
+
+/* =========================
+   EXTRA SMALL (≤ 360px)
+========================= */
+@media (max-width: 360px) {
+  .dashboard-sub-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .card-sub {
+    padding: 14px 12px;
+  }
+
+  .card-sub-content h3 {
+    font-size: 0.8rem;
+  }
+
+  .card-featured h3 {
+    font-size: 1.1rem;
+  }
+}

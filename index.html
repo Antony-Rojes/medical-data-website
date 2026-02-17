@@ -31,44 +31,73 @@
     Select a module to begin your medical guidance
   </p>
 
-  <div class="dashboard-grid">
+<div class="dashboard-grid">
 
-    <!-- Medical Chatbot -->
-    <a href="public/index.html" class="dashboard-card">
-      <div class="card-icon">💬</div>
-      <h3>Medical Chatbot</h3>
-      <p>AI symptom checker and step-by-step medical assistance</p>
+  <!-- Medical Chatbot - HERO CARD -->
+  <a href="public/index.html" class="dashboard-card card-featured">
+    <div class="card-featured-bg"></div>
+    <div class="card-featured-content">
+      <div class="card-featured-left">
+        <div class="card-badge">AI Powered</div>
+        <div class="card-icon">💬</div>
+        <h3>Medical Chatbot</h3>
+        <p>AI symptom checker and step-by-step medical assistance</p>
+        <div class="card-cta">
+          Start Consultation
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="card-featured-right">
+        <div class="chat-preview">
+          <div class="chat-bubble bot">👋 Hello! What symptoms are you experiencing today?</div>
+          <div class="chat-bubble user">I have a headache and fever...</div>
+          <div class="chat-bubble bot">Let me help you assess that.</div>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Bottom 4 Cards -->
+  <div class="dashboard-sub-grid">
+
+    <a href="public/first-aid/index.html" class="dashboard-card card-sub">
+      <div class="card-icon-wrap" style="--icon-color: #EF4444; --icon-bg: #FEF2F2;">🩹</div>
+      <div class="card-sub-content">
+        <h3>First Aid Advisor</h3>
+        <p>Quick access to life-saving emergency instructions</p>
+      </div>
+      <div class="card-arrow">→</div>
     </a>
 
-    <!-- First Aid -->
-    <a href="public/first-aid/index.html" class="dashboard-card">
-      <div class="card-icon">🩹</div>
-      <h3>First Aid Advisor</h3>
-      <p>Quick access to life-saving emergency instructions</p>
+    <a href="vaccination/Vaccination_module/pages/schedule.html" class="dashboard-card card-sub">
+      <div class="card-icon-wrap" style="--icon-color: #8B5CF6; --icon-bg: #F5F3FF;">📅</div>
+      <div class="card-sub-content">
+        <h3>Vaccination Schedule</h3>
+        <p>National Immunization Schedule</p>
+      </div>
+      <div class="card-arrow">→</div>
     </a>
 
-    <!-- Master Schedule -->
-    <a href="vaccination/Vaccination_module/pages/schedule.html" class="dashboard-card">
-      <div class="card-icon">📅</div>
-      <h3>Master Vaccination Schedule</h3>
-      <p>National Immunization Schedule</p>
+    <a href="vaccination/Vaccination_module/pages/initiatives.html" class="dashboard-card card-sub">
+      <div class="card-icon-wrap" style="--icon-color: #F59E0B; --icon-bg: #FFFBEB;">📢</div>
+      <div class="card-sub-content">
+        <h3>Govt Initiatives</h3>
+        <p>Latest vaccination schemes and health programs</p>
+      </div>
+      <div class="card-arrow">→</div>
     </a>
 
-    <!-- Govt Initiatives -->
-    <a href="vaccination/Vaccination_module/pages/initiatives.html" class="dashboard-card">
-      <div class="card-icon">📢</div>
-      <h3>Govt Initiatives</h3>
-      <p>Latest vaccination schemes and health programs</p>
-    </a>
-
-    <!-- Find & Add Camps -->
-    <a href="vaccination/Vaccination_module/pages/camps.html" class="dashboard-card">
-      <div class="card-icon">🏥</div>
-      <h3>Find Medical Camps</h3>
-      <p>Locate medical camps or register new ones (Organizers)</p>
+    <a href="vaccination/Vaccination_module/pages/camps.html" class="dashboard-card card-sub">
+      <div class="card-icon-wrap" style="--icon-color: #10B981; --icon-bg: #F0FDF4;">🏥</div>
+      <div class="card-sub-content">
+        <h3>Find Medical Camps</h3>
+        <p>Locate and register medical camps</p>
+      </div>
+      <div class="card-arrow">→</div>
     </a>
 
   </div>
+</div>
 
 </main>
 

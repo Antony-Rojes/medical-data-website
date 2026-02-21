@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   dom.sendBtn = document.getElementById('send-btn');
   dom.loader = document.getElementById('loader');
 
-  console.log('🚀 Med and Ware Initializing...');
+  console.log('🚀 Med & Ware Initializing...');
   
   // Load core data
   await loadGeneralQA();

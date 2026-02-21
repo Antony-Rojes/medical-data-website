@@ -3,67 +3,658 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Med and Ware - AI Symptom Checker</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/global.css">
-
+  <title>Med & Ware — AI Symptom Checker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Mono:wght@300;400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
-</head>
 
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #F5F3EE;
+      --surface:      #FFFFFF;
+      --surface-2:    #FAF8F4;
+      --border:       rgba(30,20,10,0.07);
+      --border-md:    rgba(30,20,10,0.12);
+      --text:         #1A1410;
+      --text-soft:    #6B6560;
+      --text-mute:    #B0AAA2;
+      --red:          #DC2626;
+      --red-dim:      rgba(220,38,38,0.08);
+      --red-border:   rgba(220,38,38,0.18);
+      --red-glow:     rgba(220,38,38,0.12);
+      --green:        #059669;
+      --green-dim:    rgba(5,150,105,0.08);
+      --green-border: rgba(5,150,105,0.2);
+    }
+
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, rgba(30,20,10,0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none; z-index: 0;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(circle at 5% 10%, rgba(220,38,38,0.04) 0%, transparent 50%),
+        radial-gradient(circle at 95% 90%, rgba(124,58,237,0.03) 0%, transparent 50%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── LOADER ─────────────────────────── */
+    .loader-container {
+      position: fixed; inset: 0; z-index: 1000;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .loader-container.hidden {
+      opacity: 0; visibility: hidden; pointer-events: none;
+    }
+    .loader-content { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .loader-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--red), #B91C1C);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; box-shadow: 0 6px 24px var(--red-glow);
+      animation: loaderPulse 1.4s ease infinite;
+    }
+    @keyframes loaderPulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.07); box-shadow: 0 10px 32px rgba(220,38,38,0.22); }
+    }
+    .loader-text {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mute);
+    }
+    .loader-bar { width: 140px; height: 2px; background: var(--border-md); border-radius: 2px; overflow: hidden; }
+    .loader-fill {
+      height: 100%; background: var(--red); border-radius: 2px;
+      animation: loaderSlide 1.4s ease infinite;
+    }
+    @keyframes loaderSlide {
+      0%   { width: 0%;  margin-left: 0; }
+      50%  { width: 65%; margin-left: 0; }
+      100% { width: 0%;  margin-left: 100%; }
+    }
+
+    /* ── HEADER ─────────────────────────── */
+    .header {
+      flex-shrink: 0; position: relative; z-index: 100;
+      background: rgba(245,243,238,0.92);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-md);
+    }
+        .header-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem; letter-spacing: 0.11em;
+      text-transform: uppercase; color: var(--text-mute);
+      background: var(--surface);
+      border: 1px solid var(--border-md);
+      padding: 4px 11px; border-radius: 20px;
+    }
+    .header-inner {
+      max-width: 820px; margin: 0 auto;
+      padding: 0 1.5rem; height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--red) 0%, #B91C1C 100%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 3px 12px var(--red-glow);
+      position: relative; overflow: hidden; flex-shrink: 0;
+    }
+
+    .logo-icon::after {
+      content: ''; position: absolute; inset: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent 60%);
+      border-radius: 8px;
+    }
+    .logo-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem; font-weight: 400;
+      letter-spacing: -0.01em; color: var(--text); line-height: 1;
+    }
+
+    .logo-name em { font-style: italic; color: var(--red); }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .status-chip {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--green-dim); border: 1px solid var(--green-border);
+      padding: 5px 11px; border-radius: 20px;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      color: var(--green); letter-spacing: 0.06em;
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+      animation: sdot 2s ease infinite;
+    }
+    @keyframes sdot {
+      0%,100% { box-shadow: 0 0 0 0 rgba(5,150,105,0.4); }
+      50% { box-shadow: 0 0 0 4px rgba(5,150,105,0); }
+    }
+    .back-btn {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 500; color: var(--text-soft);
+      padding: 6px 12px; border-radius: 8px;
+      border: 1px solid var(--border-md); background: var(--surface);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .back-btn:hover { background: var(--surface-2); color: var(--text); transform: translateX(-2px); }
+
+    .chat-wrapper {
+      flex: 1; display: flex; flex-direction: column;
+      max-width: 820px; width: 100%; margin: 10px auto;
+      padding: 0 1.5rem; min-height: 0;
+      position: relative; z-index: 10;
+      background: var(--surface);
+      border: 1px solid var(--border-md);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(30,20,10,0.12);
+    }
+
+    /* ── WELCOME BANNER ─────────────────── */
+    .welcome-banner {
+      flex-shrink: 0; padding: 1.4rem 0 0.6rem;
+      animation: slideUp 0.6s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .welcome-eyebrow {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 0.45rem;
+    }
+    .eyebrow-line { width: 20px; height: 1.5px; background: var(--red); opacity: 0.5; }
+    .welcome-heading {
+      font-family: 'Fraunces', serif; font-size: 1.5rem;
+      font-weight: 300; letter-spacing: -0.02em; color: var(--text); line-height: 1.15;
+    }
+    .welcome-heading em { font-style: italic; color: var(--text-soft); }
+    .welcome-sub { font-size: 0.8rem; color: var(--text-mute); font-weight: 300; margin-top: 3px; }
+
+    /* ── MESSAGES ───────────────────────── */
+    #chat-output {
+      flex: 1; overflow-y: auto; min-height: 0;
+      padding: 0.5rem 0;
+      display: flex; flex-direction: column; gap: 6px;
+      scroll-behavior: smooth;
+    }
+    #chat-output::-webkit-scrollbar { width: 5px; }
+    #chat-output::-webkit-scrollbar-track { background: transparent; }
+    #chat-output::-webkit-scrollbar-thumb { background: var(--border-md); border-radius: 5px; }
+    #chat-output { scrollbar-width: thin; scrollbar-color: var(--border-md) transparent; }
+
+    /* ── MESSAGE ROW ────────────────────── */
+    /* main.js outputs:
+       <div class="message bot-message"><div class="message-content">...</div></div>
+       <div class="message user-message"><div class="message-content">...</div></div>
+    */
+    .message {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      animation: fadeUp 0.3s ease both;
+      padding: 2px 0;
+    }
+    .user-message { flex-direction: row-reverse; }
+
+    /* Avatar — injected via ::before pseudo on the message row */
+    .bot-message::before,
+    .user-message::before {
+      content: attr(data-avatar);
+      width: 28px; height: 28px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0; margin-top: 2px;
+      line-height: 28px; text-align: center;
+    }
+    .bot-message::before {
+      content: '🤖';
+      background: var(--red-dim);
+      border: 1px solid var(--red-border);
+    }
+    .user-message::before {
+      content: '👤';
+      background: var(--surface-2);
+      border: 1px solid var(--border-md);
+    }
+
+    /* The message-content div — styled as bubble */
+    .message-content {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      font-weight: 300;
+      word-break: break-word;
+      max-width: calc(100% - 42px);
+    }
+
+    /* Simple text bot bubble */
+    .bot-message .message-content {
+      background: var(--surface);
+      border: 1px solid var(--border-md);
+      color: var(--text-soft);
+      border-radius: 12px;
+      border-top-left-radius: 4px;
+      padding: 10px 14px;
+    }
+
+    /* Simple text user bubble */
+    .user-message .message-content {
+      background: var(--red-dim);
+      border: 1px solid var(--red-border);
+      color: var(--red);
+      border-radius: 12px;
+      border-top-right-radius: 4px;
+      padding: 10px 14px;
+      text-align: right;
+    }
+
+    /* Wide content — when bot message has HTML cards (questions, results, notices)
+       Remove bubble styling so cards show naturally */
+    .bot-message .message-content:has(div),
+    .bot-message .message-content:has(table) {
+      background: none;
+      border: none;
+      padding: 0;
+      border-radius: 0;
+      max-width: 100%;
+    }
+
+    /* Fallback for browsers without :has() — JS adds .has-html class */
+    .bot-message .message-content.has-html {
+      background: none;
+      border: none;
+      padding: 0;
+      border-radius: 0;
+      max-width: 100%;
+    }
+    /* Hide avatar for wide-content messages */
+    .bot-message.wide-msg::before { display: none; }
+    .bot-message.wide-msg { flex-direction: column; }
+    .bot-message.wide-msg .message-content { max-width: 100%; }
+
+    /* ── RESTYLE INJECTED COMPONENTS ────── */
+
+    /* Medical Notice */
+    .message-content > div[style*="background: #ffffff"],
+    .message-content > div[style*="background:#ffffff"] {
+      background: var(--surface) !important;
+      border-radius: 14px !important;
+      box-shadow: none !important;
+      border: 1px solid var(--red-border) !important;
+      margin: 6px 0 !important;
+    }
+
+    /* Assessment title text */
+    .message-content strong[style*="color: #0EA5E9"],
+    .message-content strong[style*="color:#0EA5E9"] {
+      color: var(--red) !important;
+    }
+    .message-content span[style*="color: #64748B"] {
+      color: var(--text-mute) !important;
+    }
+
+    /* Question number badge */
+    span[style*="background: linear-gradient(135deg, #0EA5E9"] {
+      background: var(--red) !important;
+      border-radius: 8px !important;
+    }
+
+    /* Option buttons */
+    .pill-btn {
+      font-family: 'Outfit', sans-serif !important;
+      font-size: 0.85rem !important;
+      border-radius: 10px !important;
+      border: 1px solid var(--border-md) !important;
+      background: var(--surface) !important;
+      color: var(--text) !important;
+      font-weight: 500 !important;
+      cursor: pointer !important;
+      transition: all 0.18s !important;
+    }
+    .pill-btn:not(.confirm-btn):hover {
+      background: var(--red-dim) !important;
+      border-color: var(--red-border) !important;
+      color: var(--red) !important;
+      transform: translateY(-1px) !important;
+      box-shadow: none !important;
+    }
+    /* Confirm button */
+    .confirm-btn {
+      background: var(--red) !important;
+      color: #fff !important;
+      border-color: var(--red) !important;
+    }
+    .confirm-btn:hover {
+      background: #B91C1C !important;
+      border-color: #B91C1C !important;
+      color: #fff !important;
+      transform: translateY(-1px) !important;
+    }
+
+    /* Checkbox options */
+    .checkbox-option {
+      border: 1px solid var(--border-md) !important;
+      border-radius: 10px !important;
+      background: var(--surface) !important;
+      transition: all 0.18s !important;
+    }
+    .checkbox-option:hover {
+      border-color: var(--red-border) !important;
+      background: var(--red-dim) !important;
+    }
+
+    /* Result card reskin */
+    .result-card {
+      border-radius: 16px !important;
+      border: 1px solid var(--border-md) !important;
+      box-shadow: 0 4px 24px rgba(30,20,10,0.08) !important;
+      font-family: 'Outfit', sans-serif !important;
+      overflow: hidden !important;
+      margin: 8px 0 !important;
+    }
+    .result-card .result-header {
+      background: var(--surface-2) !important;
+      border-bottom: 1px solid var(--border) !important;
+    }
+    .result-card .disease-badge {
+      background: var(--text) !important;
+      font-family: 'Fraunces', serif !important;
+      font-size: 1.05rem !important;
+      font-weight: 400 !important;
+      letter-spacing: -0.01em !important;
+      border-radius: 10px !important;
+    }
+
+    /* Self-care green numbers */
+    .result-card span[style*="background: #10B981"] {
+      border-radius: 6px !important;
+    }
+
+    /* Consult box */
+    .result-card div[style*="border-left: 5px solid #ef4444"],
+    .message-content > div[style*="border-left: 5px solid #ef4444"] {
+      border-radius: 12px !important;
+      box-shadow: none !important;
+      border: 1px solid var(--red-border) !important;
+      border-left: 4px solid var(--red) !important;
+      background: var(--surface) !important;
+    }
+
+    /* Disclaimer box */
+    div[style*="font-style: italic"] {
+      background: var(--surface-2) !important;
+      border: 1px solid var(--border-md) !important;
+      border-radius: 10px !important;
+      font-style: normal !important;
+      color: var(--text-mute) !important;
+    }
+
+    /* Self-care & medicine section backgrounds */
+    div[style*="background: linear-gradient(135deg, #F0FDF4"] {
+      background: var(--green-dim) !important;
+      border-radius: 10px !important;
+    }
+    div[style*="background: #EFF6FF"] {
+      background: var(--surface-2) !important;
+      border-radius: 8px !important;
+    }
+    div[style*="background: #F0FDF4"] {
+      background: var(--green-dim) !important;
+      border-radius: 8px !important;
+    }
+
+    /* Typing indicator */
+    #typing .message-content {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .typing-dots { display: flex; gap: 4px; }
+    .typing-dots span {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--text-mute);
+      animation: tdot 1.2s ease infinite;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes tdot {
+      0%,80%,100% { transform: translateY(0); opacity: 0.35; }
+      40% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    /* Emergency message */
+    .message-content:has(> p:first-child:contains("EMERGENCY")) {
+      background: var(--red-dim) !important;
+      border-color: var(--red-border) !important;
+      color: var(--red) !important;
+    }
+
+    /* ── SUGGESTION CHIPS ───────────────── */
+    .suggestions {
+      flex-shrink: 0;
+      display: flex; flex-wrap: wrap; gap: 7px;
+      padding: 0.4rem 0 0.6rem;
+    }
+    .chip {
+      padding: 6px 13px;
+      background: var(--surface); border: 1px solid var(--border-md);
+      border-radius: 20px; font-size: 0.77rem; color: var(--text-soft);
+      cursor: pointer; font-family: 'Outfit', sans-serif;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .chip:hover {
+      background: var(--red-dim); border-color: var(--red-border);
+      color: var(--red); transform: translateY(-1px);
+    }
+
+    /* ── INPUT ──────────────────────────── */
+    .input-wrapper {
+      flex-shrink: 0; padding: 0.6rem 0 0.9rem;
+      border-top: 1px solid var(--border);
+    }
+    .input-row { display: flex; gap: 9px; align-items: center; }
+    #user-input {
+      flex: 1; background: var(--surface);
+      border: 1px solid var(--border-md); border-radius: 11px;
+      padding: 11px 15px; font-family: 'Outfit', sans-serif;
+      font-size: 0.87rem; color: var(--text); font-weight: 300;
+      outline: none; box-shadow: 0 1px 4px rgba(30,20,10,0.04);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    #user-input::placeholder { color: var(--text-mute); }
+    #user-input:focus {
+      border-color: var(--red-border);
+      box-shadow: 0 0 0 3px var(--red-dim);
+    }
+    #send-btn {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: var(--red); border: none; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: #fff;
+      box-shadow: 0 2px 8px var(--red-glow);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    #send-btn:hover {
+      background: #B91C1C; transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(220,38,38,0.25);
+    }
+    #send-btn:active { transform: translateY(0); }
+    #send-btn svg { width: 16px; height: 16px; }
+    .input-hint {
+      margin-top: 5px;
+      font-family: 'DM Mono', monospace; font-size: 0.58rem;
+      letter-spacing: 0.06em; color: var(--text-mute); padding: 0 2px;
+    }
+    .disclaimer {
+      flex-shrink: 0; text-align: center;
+      font-size: 0.68rem; color: var(--text-mute);
+      font-weight: 300; padding-bottom: 0.5rem;
+    }
+
+    /* ── ANIMATIONS ─────────────────────── */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ─────────────────────── */
+    @media (max-width: 600px) {
+      .header-inner { 
+        padding: 0 20px;
+        max-width: 100%;
+      }
+      .chat-wrapper { 
+        margin: 10px 20px !important;
+        padding: 0 20px !important;
+        max-width: none !important;
+        width: auto !important;
+      }
+      .back-btn span { display: none; }
+    }
+    
+  </style>
+</head>
 <body>
 
-  <!-- Loader -->
+  <!-- LOADER -->
   <div id="loader" class="loader-container">
     <div class="loader-content">
-      <div class="spinner"></div>
-      <p>Initializing Med and Ware Database...</p>
+      <div class="loader-icon">🩺</div>
+      <div class="loader-text">Initializing Med &amp; Ware...</div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
     </div>
   </div>
 
-  <!-- Header -->
-  <header class="header">
-    <div class="container header-flex">
-
-      <div class="logo">
-        <div class="logo-icon">🩺</div>
-        <h1>Med and Ware</h1>
-  </header>
-
-  <!-- Main Chat Area -->
-  <main class="main">
-    
-    <section class="chat-section">
-      <div class="container">
-        
-        <div id="chat-output" class="chat-output">
-          <div class="message bot-message">
-            <strong> </strong>
-          </div>
-        </div>
-
-        <div class="input-area">
-          <input 
-            type="text" 
-            id="user-input" 
-            placeholder="Type your symptoms here..." 
-            autocomplete="off"
-          >
-
-          <button id="send-btn" class="send-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-            </svg>
-          </button>
-
-        </div>
-
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
       </div>
-    </section>
+      <span class="logo-name">Med <em>&amp;</em> Ware</span>
+    </div>
+    <span class="header-tag">Health Guidance Platform</span>
+  </div>
+</header>
 
-  </main>
+  <!-- CHAT -->
+  <div class="chat-wrapper">
 
-<script type="module" src="../js/main.js"></script>
+    <div class="welcome-banner">
+      <div class="welcome-eyebrow">
+        <span class="eyebrow-line"></span>
+        AI Symptom Checker
+      </div>
+      <h1 class="welcome-heading">
+        What are you<br><em>experiencing today?</em>
+      </h1>
+      <p class="welcome-sub">Describe your symptoms — I'll help assess and guide you.</p>
+    </div>
+
+    <div id="chat-output"></div>
+
+    <div class="suggestions" id="suggestions">
+      <button class="chip" onclick="fillInput('Headache')">Headache</button>
+      <button class="chip" onclick="fillInput('Fever')">fever</button>
+      <button class="chip" onclick="fillInput('Cough and cold')">Cough &amp; cold</button>
+      <button class="chip" onclick="fillInput('Acidity')">Acidity</button>
+      <button class="chip" onclick="fillInput('Fatigue')">Fatigue</button>
+    </div>
+
+    <div class="input-wrapper">
+      <div class="input-row">
+        <input
+          type="text"
+          id="user-input"
+          placeholder="Describe your symptoms…"
+          autocomplete="off"
+        >
+        <button id="send-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+        </button>
+      </div>
+      <p class="input-hint"></p>
+    </div>
+
+    <p class="disclaimer">Med &amp; Ware AI · For guidance only · Always consult a doctor for serious concerns</p>
+
+  </div>
+
+  <script>
+    function fillInput(text) {
+      const inp = document.getElementById('user-input');
+      if (inp) { inp.value = text; inp.focus(); }
+    }
+
+    // After main.js adds each message, classify it for correct styling
+    document.addEventListener('DOMContentLoaded', () => {
+      const chatOutput = document.getElementById('chat-output');
+      const suggestions = document.getElementById('suggestions');
+      let firstSend = true;
+
+      // Hide suggestions on first send
+      document.getElementById('send-btn')?.addEventListener('click', () => {
+        if (firstSend && suggestions) {
+          suggestions.style.display = 'none';
+          firstSend = false;
+        }
+      });
+
+      // Watch for new messages and classify them
+      const observer = new MutationObserver(mutations => {
+        mutations.forEach(m => {
+          m.addedNodes.forEach(node => {
+            if (!(node instanceof HTMLElement)) return;
+            if (!node.classList.contains('message')) return;
+            if (node.dataset.styled) return;
+            node.dataset.styled = '1';
+
+            const content = node.querySelector('.message-content');
+            if (!content) return;
+
+            // If content has block-level HTML children → wide card layout
+            if (content.querySelector('div, table, ul, ol')) {
+              if (node.classList.contains('bot-message')) {
+                node.classList.add('wide-msg');
+              }
+            }
+          });
+        });
+      });
+
+      observer.observe(chatOutput, { childList: true });
+    });
+  </script>
+
+  <script type="module" src="../js/main.js"></script>
 
 </body>
 </html>

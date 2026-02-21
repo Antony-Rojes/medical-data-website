@@ -4,175 +4,795 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="First Aid Advisor - Quick access to life-saving emergency instructions">
-  <title>First Aid Advisor - Emergency Guidance</title>
+  <title>First Aid Advisor — Med & Ware</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Mono:wght@300;400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Global Med and Ware Styles -->
-  <link rel="stylesheet" href="../../css/global.css">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <!-- First Aid Scoped Styles -->
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* FIX global flex layout */
+    :root {
+      --bg:           #F5F3EE;
+      --surface:      #FFFFFF;
+      --surface-2:    #FAF8F4;
+      --border:       rgba(30,20,10,0.07);
+      --border-md:    rgba(30,20,10,0.12);
+      --text:         #1A1410;
+      --text-soft:    #6B6560;
+      --text-mute:    #B0AAA2;
+
+      --red:          #DC2626;
+      --red-mid:      #EF4444;
+      --red-dim:      rgba(220,38,38,0.08);
+      --red-border:   rgba(220,38,38,0.18);
+      --red-glow:     rgba(220,38,38,0.15);
+
+      --cyan:         #0891B2;
+      --cyan-dim:     rgba(8,145,178,0.08);
+      --cyan-border:  rgba(8,145,178,0.18);
+
+      --violet:       #7C3AED;
+      --violet-dim:   rgba(124,58,237,0.08);
+      --violet-border:rgba(124,58,237,0.18);
+
+      --amber:        #D97706;
+      --amber-dim:    rgba(217,119,6,0.08);
+      --amber-border: rgba(217,119,6,0.18);
+
+      --green:        #059669;
+      --green-dim:    rgba(5,150,105,0.08);
+      --green-border: rgba(5,150,105,0.18);
+
+      --orange:       #EA580C;
+      --orange-dim:   rgba(234,88,12,0.08);
+      --orange-border:rgba(234,88,12,0.18);
+
+      --pink:         #DB2777;
+      --pink-dim:     rgba(219,39,119,0.08);
+      --pink-border:  rgba(219,39,119,0.18);
+
+      --sky:          #0284C7;
+      --sky-dim:      rgba(2,132,199,0.08);
+      --sky-border:   rgba(2,132,199,0.18);
+
+      --r-card: 18px;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      display: block !important;
-      height: auto !important;
-      overflow: auto !important;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f8fafc;
-      padding: 40px 20px;
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    .fa-wrapper {
-      max-width: 1300px;
-      margin: 0 auto;
+    a { text-decoration: none; color: inherit; }
+
+    /* scrollbar */
+    * { scrollbar-width: thin; scrollbar-color: var(--red-mid) #EDE9E0; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #EDE9E0; }
+    ::-webkit-scrollbar-thumb { background: var(--red-mid); border-radius: 6px; }
+
+    /* SUBTLE TEXTURE */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(220,38,38,0.04) 0%, transparent 50%),
+        radial-gradient(circle at 85% 75%, rgba(124,58,237,0.04) 0%, transparent 50%);
+      pointer-events: none; z-index: 0;
     }
 
-    .fa-hero {
-      text-align: center;
-      margin-bottom: 70px;
+    /* dot grid */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, rgba(30,20,10,0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none; z-index: 0;
     }
 
-    .fa-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(36px, 6vw, 56px);
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: #1e293b;
+    /* HEADER */
+    .header {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(245,243,238,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-md);
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 2.5rem; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon {
+      width: 38px; height: 38px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--red) 0%, #B91C1C 100%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px var(--red-glow);
+      position: relative; overflow: hidden;
+    }
+    .logo-icon::after {
+      content: ''; position: absolute; inset: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 60%);
+      border-radius: 10px;
+    }
+    .logo-icon svg { position: relative; z-index: 1; }
+    .logo-text { display: flex; flex-direction: column; gap: 1px; }
+    .logo-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem; font-weight: 400;
+      letter-spacing: -0.01em; color: var(--text); line-height: 1;
+    }
+    .logo-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem; color: var(--red);
+      letter-spacing: 0.12em; text-transform: uppercase; font-weight: 400;
     }
 
-    .fa-subtitle {
-      font-size: 18px;
-      color: #64748b;
-      margin-bottom: 25px;
+    .back-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; font-weight: 500; color: var(--text-soft);
+      padding: 7px 14px; border-radius: 9px;
+      border: 1px solid var(--border-md);
+      background: var(--surface);
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .back-link:hover {
+      background: var(--surface);
+      color: var(--text);
+      border-color: rgba(30,20,10,0.2);
+      transform: translateX(-2px);
+      box-shadow: 0 2px 8px rgba(30,20,10,0.06);
     }
 
-    .fa-badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-      color: white;
-      padding: 14px 32px;
-      border-radius: 50px;
-      font-size: 15px;
-      font-weight: 600;
-      box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
-      animation: pulse 2s infinite;
+    .emergency-chip {
+      display: flex; align-items: center; gap: 7px;
+      background: var(--red-dim);
+      border: 1px solid var(--red-border);
+      padding: 6px 14px; border-radius: 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem; font-weight: 400;
+      color: var(--red); letter-spacing: 0.06em;
+    }
+    .e-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--red); flex-shrink: 0;
+      animation: pulse-dot 1.6s ease infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); }
+      50%      { box-shadow: 0 0 0 5px rgba(220,38,38,0); }
     }
 
-    @keyframes pulse {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+    /* MAIN */
+    .main {
+      max-width: 1200px; margin: 0 auto;
+      padding: 3.5rem 2.5rem 6rem;
+      position: relative; z-index: 10;
     }
 
-    .fa-grid {
+    /* HERO */
+    .hero {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 35px;
+      grid-template-columns: 1fr auto;
+      align-items: flex-end;
+      margin-bottom: 2.75rem;
+      gap: 2rem;
+      animation: slideUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem; font-weight: 400;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 1rem;
+    }
+    .eyebrow-line { width: 24px; height: 1.5px; background: var(--red); opacity: 0.5; }
+
+    .hero-heading {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 300; line-height: 1.06;
+      letter-spacing: -0.03em; color: var(--text);
+    }
+    .hero-heading em {
+      font-style: italic;
+      color: var(--text-soft);
+    }
+    .hero-desc {
+      margin-top: 1rem;
+      font-size: 0.92rem; color: var(--text-soft);
+      font-weight: 300; line-height: 1.7; max-width: 46ch;
     }
 
-    .fa-card {
-      background: white;
-      border-radius: 24px;
-      padding: 60px 30px;
-      text-decoration: none;
-      color: #1e293b;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 260px;
-      border: 3px solid #2d3748;
+    /* SOS block */
+    .sos-block {
+      background: var(--surface);
+      border: 1px solid var(--red-border);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: 0 4px 24px var(--red-glow);
+      position: relative; overflow: hidden;
     }
+    .sos-block::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--red), #FF6B6B, var(--red));
+    }
+    .sos-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--text-mute);
+      margin-bottom: 10px;
+    }
+    .sos-numbers {
+      display: flex; gap: 16px; align-items: center; justify-content: center;
+    }
+    .sos-num {
+      font-family: 'Fraunces', serif;
+      font-size: 2.2rem; font-weight: 300;
+      letter-spacing: -0.03em; color: var(--red); line-height: 1;
+    }
+    .sos-divider { width: 1px; height: 30px; background: var(--red-border); }
+    .sos-sub {
+      margin-top: 8px;
+      font-size: 0.65rem; color: var(--text-mute);
+      font-family: 'DM Mono', monospace; letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* TOOLBAR */
+    .toolbar {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.75rem; gap: 1rem;
+      animation: slideUp 0.6s 0.15s cubic-bezier(0.22,1,0.36,1) both;
+      flex-wrap: wrap;
+    }
+
+    .search-wrap { position: relative; }
+    .search-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--text-mute); pointer-events: none;
+    }
+    .search-input {
+      background: var(--surface);
+      border: 1px solid var(--border-md);
+      border-radius: 11px;
+      padding: 11px 16px 11px 42px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.87rem; color: var(--text);
+      outline: none; width: 280px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 1px 4px rgba(30,20,10,0.05);
+    }
+    .search-input::placeholder { color: var(--text-mute); }
+    .search-input:focus {
+      border-color: var(--red-border);
+      box-shadow: 0 0 0 3px var(--red-dim);
+    }
+
+    .result-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem; color: var(--text-mute);
+      letter-spacing: 0.08em;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+      gap: 1.1rem;
+    }
+
+    /* CARD */
+    .fa-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+      padding: 1.75rem;
+      display: flex; flex-direction: column; gap: 1.2rem;
+      position: relative; overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(30,20,10,0.04);
+    }
+
+    /* staggered animation */
+    .fa-card { animation: fadeUp 0.55s ease both; }
+    .fa-card:nth-child(1) { animation-delay: 0.10s; }
+    .fa-card:nth-child(2) { animation-delay: 0.17s; }
+    .fa-card:nth-child(3) { animation-delay: 0.24s; }
+    .fa-card:nth-child(4) { animation-delay: 0.31s; }
+    .fa-card:nth-child(5) { animation-delay: 0.38s; }
+    .fa-card:nth-child(6) { animation-delay: 0.45s; }
+    .fa-card:nth-child(7) { animation-delay: 0.52s; }
+    .fa-card:nth-child(8) { animation-delay: 0.59s; }
+
+    /* top accent bar */
+    .fa-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: var(--accent);
+      border-radius: var(--r-card) var(--r-card) 0 0;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .fa-card:hover::before { transform: scaleX(1); }
+
+    /* subtle bg tint on hover */
+    .fa-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--accent-tint);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .fa-card:hover::after { opacity: 1; }
 
     .fa-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      border-color: #5b8def;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(30,20,10,0.1);
     }
 
-    .fa-icon {
-      font-size: 70px;
-      margin-bottom: 20px;
+    /* accent colour variants */
+    .ac-red    { --accent: var(--red);    --accent-tint: rgba(220,38,38,0.018); }
+    .ac-cyan   { --accent: var(--cyan);   --accent-tint: rgba(8,145,178,0.018); }
+    .ac-violet { --accent: var(--violet); --accent-tint: rgba(124,58,237,0.018); }
+    .ac-red2   { --accent: var(--red-mid);--accent-tint: rgba(239,68,68,0.018); }
+    .ac-orange { --accent: var(--orange); --accent-tint: rgba(234,88,12,0.018); }
+    .ac-amber  { --accent: var(--amber);  --accent-tint: rgba(217,119,6,0.018); }
+    .ac-green  { --accent: var(--green);  --accent-tint: rgba(5,150,105,0.018); }
+    .ac-pink   { --accent: var(--pink);   --accent-tint: rgba(219,39,119,0.018); }
+
+    .ac-red:hover    { border-color: var(--red-border);    }
+    .ac-cyan:hover   { border-color: var(--cyan-border);   }
+    .ac-violet:hover { border-color: var(--violet-border); }
+    .ac-red2:hover   { border-color: rgba(239,68,68,0.2);  }
+    .ac-orange:hover { border-color: var(--orange-border); }
+    .ac-amber:hover  { border-color: var(--amber-border);  }
+    .ac-green:hover  { border-color: var(--green-border);  }
+    .ac-pink:hover   { border-color: var(--pink-border);   }
+
+    .card-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      position: relative; z-index: 1;
     }
 
-    .fa-card h2 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 24px;
-      font-weight: 600;
-      color: #5b8def;
+    .card-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .fa-card:hover .card-icon { transform: scale(1.1) rotate(-5deg); }
+
+    .ac-red    .card-icon { background: var(--red-dim);    border: 1px solid var(--red-border);    }
+    .ac-cyan   .card-icon { background: var(--cyan-dim);   border: 1px solid var(--cyan-border);   }
+    .ac-violet .card-icon { background: var(--violet-dim); border: 1px solid var(--violet-border); }
+    .ac-red2   .card-icon { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); }
+    .ac-orange .card-icon { background: var(--orange-dim); border: 1px solid var(--orange-border); }
+    .ac-amber  .card-icon { background: var(--amber-dim);  border: 1px solid var(--amber-border);  }
+    .ac-green  .card-icon { background: var(--green-dim);  border: 1px solid var(--green-border);  }
+    .ac-pink   .card-icon { background: var(--pink-dim);   border: 1px solid var(--pink-border);   }
+
+    .card-arrow {
+      width: 32px; height: 32px; border-radius: 9px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-md);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-mute);
+      transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.25s;
+    }
+    .fa-card:hover .card-arrow { transform: translate(2px, -2px); border-color: transparent; }
+    .ac-red:hover    .card-arrow { background: var(--red);    color: #fff; }
+    .ac-cyan:hover   .card-arrow { background: var(--cyan);   color: #fff; }
+    .ac-violet:hover .card-arrow { background: var(--violet); color: #fff; }
+    .ac-red2:hover   .card-arrow { background: var(--red-mid);color: #fff; }
+    .ac-orange:hover .card-arrow { background: var(--orange); color: #fff; }
+    .ac-amber:hover  .card-arrow { background: var(--amber);  color: #fff; }
+    .ac-green:hover  .card-arrow { background: var(--green);  color: #fff; }
+    .ac-pink:hover   .card-arrow { background: var(--pink);   color: #fff; }
+
+    .card-body { position: relative; z-index: 1; }
+
+    .card-tag {
+      display: inline-flex;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 3px 9px;
+      border-radius: 5px; width: fit-content; margin-bottom: 7px; font-weight: 400;
+    }
+    .ac-red    .card-tag { background: var(--red-dim);    color: var(--red);    border: 1px solid var(--red-border);    }
+    .ac-cyan   .card-tag { background: var(--cyan-dim);   color: var(--cyan);   border: 1px solid var(--cyan-border);   }
+    .ac-violet .card-tag { background: var(--violet-dim); color: var(--violet); border: 1px solid var(--violet-border); }
+    .ac-red2   .card-tag { background: rgba(239,68,68,0.08); color: var(--red-mid); border: 1px solid rgba(239,68,68,0.2); }
+    .ac-orange .card-tag { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange-border); }
+    .ac-amber  .card-tag { background: var(--amber-dim);  color: var(--amber);  border: 1px solid var(--amber-border);  }
+    .ac-green  .card-tag { background: var(--green-dim);  color: var(--green);  border: 1px solid var(--green-border);  }
+    .ac-pink   .card-tag { background: var(--pink-dim);   color: var(--pink);   border: 1px solid var(--pink-border);   }
+
+    .card-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem; font-weight: 400;
+      letter-spacing: -0.015em; color: var(--text);
+      line-height: 1.2; margin-bottom: 5px;
+    }
+    .card-desc {
+      font-size: 0.8rem; color: var(--text-soft);
+      line-height: 1.6; font-weight: 300;
     }
 
-    @media (max-width: 768px) {
-      body { padding: 25px 15px; }
+    .card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1rem; border-top: 1px solid var(--border);
+      position: relative; z-index: 1;
+    }
+    .card-urgency { display: flex; align-items: center; gap: 5px; }
+    .urgency-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+    }
+    .ac-red    .urgency-dot,
+    .ac-red2   .urgency-dot { background: var(--red);    }
+    .ac-cyan   .urgency-dot { background: var(--cyan);   }
+    .ac-violet .urgency-dot { background: var(--violet); }
+    .ac-orange .urgency-dot { background: var(--orange); }
+    .ac-amber  .urgency-dot { background: var(--amber);  }
+    .ac-green  .urgency-dot { background: var(--green);  }
+    .ac-pink   .urgency-dot { background: var(--pink);   }
+
+    .urgency-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem; color: var(--text-mute); letter-spacing: 0.06em;
+    }
+    .card-read {
+      font-size: 0.7rem; color: var(--text-mute);
+      font-family: 'DM Mono', monospace;
     }
 
+    /* NO RESULTS */
+    .no-results {
+      display: none; grid-column: 1/-1;
+      text-align: center; padding: 4rem 2rem;
+      color: var(--text-mute);
+    }
+    .no-results.visible { display: block; }
+    .no-results p { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 300; margin-bottom: 6px; }
+    .no-results span { font-size: 0.8rem; }
+
+    /* BOTTOM STRIP */
+    .bottom-strip {
+      margin-top: 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border-md);
+      border-radius: var(--r-card);
+      padding: 1.2rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 1px 4px rgba(30,20,10,0.04);
+      animation: slideUp 0.6s 0.7s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .strip-left { display: flex; align-items: center; gap: 1.5rem; }
+    .strip-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-mute); }
+    .s-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .s-dot.on   { background: var(--green); animation: pulse-dot 2s ease infinite; }
+    .s-dot.warn { background: var(--amber); }
+    .strip-div { width: 1px; height: 18px; background: var(--border-md); }
+    .strip-right {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; color: var(--text-mute); letter-spacing: 0.06em;
+    }
+
+    /* ANIMATIONS */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HIDDEN */
+    .fa-card.hidden { display: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .sos-block { display: none; }
+    }
+    @media (max-width: 640px) {
+      .main { padding: 2rem 1.25rem 4rem; }
+      .header-inner { padding: 0 1.25rem; }
+      .search-input { width: 220px; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+      .card-desc { display: none; }
+    }
+    @media (max-width: 440px) {
+      .grid { grid-template-columns: 1fr; }
+      .search-input { width: 100%; }
+    }
   </style>
 </head>
-
 <body>
 
-  <div class="fa-wrapper">
-
-    <section class="fa-hero">
-      <h1 class="fa-title">First Aid Advisor</h1>
-      <p class="fa-subtitle">
-        Quick access to life-saving emergency instructions
-      </p>
-
-      <div class="fa-badge">
-        For Emergencies: Call 911 / 108 Immediately
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
       </div>
-    </section>
+      <div class="logo-text">
+        <span class="logo-name">Med &amp; Ware</span>
+        <span class="logo-sub">First Aid Advisor</span>
+      </div>
+    </div>
 
-    <main class="fa-grid">
+    <a href="../../index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Dashboard
+    </a>
+  </div>
+</header>
 
-      <a href="First Aid/choking.html" class="fa-card">
-        <span class="fa-icon">🫁</span>
-        <h2>Choking</h2>
-      </a>
+<!-- MAIN -->
+<main class="main">
 
-      <a href="First Aid/cpr.html" class="fa-card">
-        <span class="fa-icon">❤️</span>
-        <h2>CPR</h2>
-      </a>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line"></span>
+        Emergency Module
+      </div>
+      <h1 class="hero-heading">
+        First Aid<br>
+        <em>Advisor</em>
+      </h1>
+      <p class="hero-desc">
+        Step-by-step life-saving instructions for critical emergencies. Select a condition to begin guided assistance immediately.
+      </p>
+    </div>
 
-      <a href="First Aid/stroke.html" class="fa-card">
-        <span class="fa-icon">🧠</span>
-        <h2>Stroke</h2>
-      </a>
+    <div class="sos-block">
+      <div class="sos-label">Emergency Numbers</div>
+      <div class="sos-numbers">
+        <div class="sos-num">911</div>
+        <div class="sos-divider"></div>
+        <div class="sos-num">108</div>
+      </div>
+      <div class="sos-sub">Call immediately if critical</div>
+    </div>
+  </div>
 
-      <a href="First Aid/bleeding.html" class="fa-card">
-        <span class="fa-icon">🩸</span>
-        <h2>Bleeding</h2>
-      </a>
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input class="search-input" type="text" id="searchInput" placeholder="Search emergency type…" autocomplete="off">
+    </div>
+    <span class="result-count" id="resultCount">8 guides available</span>
+  </div>
 
-      <a href="First Aid/burns.html" class="fa-card">
-        <span class="fa-icon">🔥</span>
-        <h2>Burns</h2>
-      </a>
+  <!-- GRID -->
+  <div class="grid" id="cardGrid">
 
-      <a href="First Aid/fracture.html" class="fa-card">
-        <span class="fa-icon">🦴</span>
-        <h2>Fracture</h2>
-      </a>
+    <a href="First Aid/choking.html" class="fa-card ac-red" data-name="choking airway">
+      <div class="card-top">
+        <div class="card-icon">🫁</div>
+        <div class="card-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Airway</div>
+        <h2 class="card-title">Choking</h2>
+        <p class="card-desc">Heimlich maneuver and airway clearance for adults and children.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-urgency">
+          <span class="urgency-dot"></span>
+          <span class="urgency-label">Critical</span>
+        </div>
+        <span class="card-read">~2 min</span>
+      </div>
+    </a>
 
-      <a href="First Aid/injury.html" class="fa-card">
-        <span class="fa-icon">🩹</span>
-        <h2>Injury</h2>
-      </a>
+    <a href="First Aid/cpr.html" class="fa-card ac-cyan" data-name="cpr cardiac arrest resuscitation">
+      <div class="card-top">
+        <div class="card-icon">❤️</div>
+        <div class="card-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Cardiac</div>
+        <h2 class="card-title">CPR</h2>
+        <p class="card-desc">Cardiopulmonary resuscitation steps to restore breathing and circulation.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-urgency">
+          <span class="urgency-dot"></span>
+          <span class="urgency-label">Critical</span>
+        </div>
+        <span class="card-read">~3 min</span>
+      </div>
+    </a>
 
-      <a href="First Aid/heart_attack.html" class="fa-card">
-        <span class="fa-icon">🫀</span>
-        <h2>Heart Attack</h2>
-      </a>
+    <a href="First Aid/stroke.html" class="fa-card ac-violet" data-name="stroke brain neurological">
+      <div class="card-top">
+        <div class="card-icon">🧠</div>
+        <div class="card-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Neurological</div>
+        <h2 class="card-title">Stroke</h2>
+        <p class="card-desc">FAST protocol and immediate response for stroke recognition and action.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-urgency">
+          <span class="urgency-dot"></span>
+          <span class="urgency-label">Critical</span>
+        </div>
+        <span class="card-read">~2 min</span>
+      </div>
+    </a>
 
-    </main>
+    <a href="First Aid/bleeding.html" class="fa-card ac-red2" data-name="bleeding wound cut trauma">
+      <div class="card-top">
+        <div class="card-icon">🩸</div>
+        <div class="card-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Trauma</div>
+        <h2 class="card-title">Bleeding</h2>
+        <p class="card-desc">Wound control, pressure application, and tourniquet use for severe bleeding.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-urgency">
+          <span class="urgency-dot"></span>
+          <span class="urgency-label">Urgent</span>
+        </div>
+        <span class="card-read">~2 min</span>
+      </div>
+    </a>
+
+    <a href="First Aid/burns.html" class="fa-card ac-orange" data-name="burns fire heat thermal">
+      <div class="card-top">
+        <div class="card-icon">🔥</div>
+        <div class="card-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Thermal</div>
+        <h2 class="card-title">Burns</h2>
+        <p class="card-desc">Classification and treatment for first, second, and third-degree burns.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-urgency">
+          <span class="urgency-dot"></span>
+          <span class="urgency-label">Urgent</span>
+        </div>
+        <span class="card-read">~3 min</span>
+      </div>
+    </a>
+
+    <a href="First Aid/fracture.html" class="fa-card ac-amber" data-name="fracture bone break skeletal">
+      <div class="card-top">
+        <div class="card-icon">🦴</div>
+        <div class="card-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Skeletal</div>
+        <h2 class="card-title">Fracture</h2>
+        <p class="card-desc">Immobilization and splinting techniques for suspected bone fractures.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-urgency">
+          <span class="urgency-dot"></span>
+          <span class="urgency-label">Moderate</span>
+        </div>
+        <span class="card-read">~3 min</span>
+      </div>
+    </a>
+
+    <a href="First Aid/injury.html" class="fa-card ac-green" data-name="injury wound sprain general">
+      <div class="card-top">
+        <div class="card-icon">🩹</div>
+        <div class="card-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">General</div>
+        <h2 class="card-title">Injury</h2>
+        <p class="card-desc">RICE method and wound care for soft tissue injuries and sprains.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-urgency">
+          <span class="urgency-dot"></span>
+          <span class="urgency-label">Moderate</span>
+        </div>
+        <span class="card-read">~2 min</span>
+      </div>
+    </a>
+
+    <a href="First Aid/heart_attack.html" class="fa-card ac-pink" data-name="heart attack cardiac myocardial">
+      <div class="card-top">
+        <div class="card-icon">🫀</div>
+        <div class="card-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag">Cardiac</div>
+        <h2 class="card-title">Heart Attack</h2>
+        <p class="card-desc">Recognition and immediate response for myocardial infarction events.</p>
+      </div>
+      <div class="card-footer">
+        <div class="card-urgency">
+          <span class="urgency-dot"></span>
+          <span class="urgency-label">Critical</span>
+        </div>
+        <span class="card-read">~2 min</span>
+      </div>
+    </a>
+
+    <div class="no-results" id="noResults">
+      <p>No guides found</p>
+      <span>Try a different search term</span>
+    </div>
 
   </div>
+
+</main>
+
+<script>
+  const input = document.getElementById('searchInput');
+  const cards = document.querySelectorAll('.fa-card');
+  const countEl = document.getElementById('resultCount');
+  const noResults = document.getElementById('noResults');
+
+  input.addEventListener('input', () => {
+    const q = input.value.toLowerCase().trim();
+    let visible = 0;
+
+    cards.forEach(card => {
+      const name  = card.getAttribute('data-name') || '';
+      const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+      const tag   = card.querySelector('.card-tag')?.textContent.toLowerCase() || '';
+      const match = !q || name.includes(q) || title.includes(q) || tag.includes(q);
+      card.classList.toggle('hidden', !match);
+      if (match) visible++;
+    });
+
+    countEl.textContent = q
+      ? `${visible} result${visible !== 1 ? 's' : ''} for "${input.value}"`
+      : '8 guides available';
+
+    noResults.classList.toggle('visible', visible === 0);
+  });
+</script>
 
 </body>
 </html>

@@ -82,54 +82,88 @@ window.confirmMultiSelect = function() {
   const checkboxes = document.querySelectorAll(
     `input[type="checkbox"][data-question-idx="${state.currentIndex}"]:checked`
   );
-  const selected = Array.from(checkboxes).map(cb => cb.value);
   
-  if (selected.length === 0) {
-    addMessage('Bot', '⚠️ Please select at least one option before continuing.');
+  if (checkboxes.length === 0) {
+    // Instead of a bot message which might clutter the chat, 
+    // you could also just shake the button, but this works:
+    addMessage('Bot', '⚠️ Please select at least one option (or "None of these") to continue.');
     return;
   }
+
+  const selected = Array.from(checkboxes).map(cb => cb.value);
   
+  window.isSystemProcessing = true;
   processAnswer(selected.join(', '));
+  window.isSystemProcessing = false;
+};
+
+window.handleCheckboxLogic = function(clickedCheckbox) {
+  const container = clickedCheckbox.closest('.multi-select-container');
+  const allCheckboxes = container.querySelectorAll('input[type="checkbox"]');
+  const noneOptionValue = "None of these"; // Ensure this matches your JSON value exactly
+
+  if (clickedCheckbox.value === noneOptionValue && clickedCheckbox.checked) {
+    // If "None of these" is selected, uncheck everything else
+    allCheckboxes.forEach(cb => {
+      if (cb.value !== noneOptionValue) cb.checked = false;
+    });
+  } else if (clickedCheckbox.checked) {
+    // If any other symptom is selected, uncheck "None of these"
+    allCheckboxes.forEach(cb => {
+      if (cb.value === noneOptionValue) cb.checked = false;
+    });
+  }
 };
 
 function handleUserInput() {
   const text = dom.userInput.value.trim();
   if (!text || !state.isInitialized) return;
+
+  const currentQuestion = state.questions[state.currentIndex];
+
+  // If in multi-select mode, don't even add the message to the screen
+  if (state.mode === 'ANSWERING_QUESTIONS' && currentQuestion?.type === 'multi_select') {
+    dom.userInput.value = '';
+    addMessage('Bot', '⚠️ Please use the checkboxes above instead of typing.');
+    return;
+  }
   
   dom.userInput.value = '';
   dom.userInput.style.height = 'auto';
   handleUserResponse(text);
 }
 
+/**
+ * js/main.js
+ * Optimized handleUserResponse to prioritize symptom detection
+ */
 function handleUserResponse(text) {
-
   console.log('🎯 Processing:', text);
 
-  // ✅ Always show user message first
+  // 1. Always show user message first
   addMessage('User', text);
 
-  // Try general responses first
+  // 2. PRIORITY: If currently in assessment, process ONLY as an answer
+  if (state.mode === 'ANSWERING_QUESTIONS') {
+    processAnswer(text);
+    return;
+  }
+
+  // 3. If NOT in assessment, check for new symptom detection
+  const diseaseId = detectDisease(text);
+  if (state.mode === 'WAITING_FOR_SYMPTOM' && diseaseId) {
+    processSymptom(diseaseId);
+    return;
+  }
+
+  // 4. Try general responses (Greetings, Help, etc.)
   const generalReply = getGeneralResponse(text);
   if (generalReply) {
     addMessage('Bot', generalReply);
     return;
   }
 
-  // Try disease detection
-  const diseaseId = detectDisease(text);
-
-  if (state.mode === 'WAITING_FOR_SYMPTOM' && diseaseId) {
-    processSymptom(diseaseId);
-    return;
-  }
-
-  // If in question mode, process as answer
-  if (state.mode !== 'WAITING_FOR_SYMPTOM') {
-    processAnswer(text);
-    return;
-  }
-
-  // Fallback
+  // 5. Fallback
   addMessage('Bot', getFallbackReply());
 }
 
@@ -220,7 +254,12 @@ function askNextQuestion() {
     finishDiagnosis();
     return;
   }
-  
+
+  // Update input field to guide the user
+  if (dom.userInput) {
+    dom.userInput.placeholder = "Select an option above...";
+  }
+
   let optionsHtml;
   
   if (q.type === 'multi_select') {
@@ -243,10 +282,11 @@ function askNextQuestion() {
           " onmouseover="this.style.borderColor='#0EA5E9'; this.style.background='#F0F9FF';" 
              onmouseout="this.style.borderColor='#E2E8F0'; this.style.background='white';">
             <input 
-              type="checkbox" 
-              value="${option}" 
-              data-question-idx="${state.currentIndex}"
-              style="width: 20px; height: 20px; cursor: pointer;">
+            type="checkbox" 
+            value="${option}" 
+            data-question-idx="${state.currentIndex}"
+            onchange="handleCheckboxLogic(this)"
+            style="width: 20px; height: 20px; cursor: pointer;">
             <span style="font-size: 15px; color: #1E293B; font-weight: 500;">${formatOption(option)}</span>
           </label>
         `).join('')}
@@ -313,9 +353,34 @@ function askNextQuestion() {
 }
 
 function processAnswer(answer) {
+  const currentQuestion = state.questions[state.currentIndex];
+
+  // --- STRICT VALIDATION BLOCK ---
+  
+  // 1. If it's a multi-select question, block ALL manual text input
+  if (currentQuestion.type === 'multi_select') {
+    // Only allow the answer if it comes from the confirmMultiSelect() function
+    // We check if the 'answer' includes a comma or is 'None of these' 
+    // but a safer way is to check if the caller was a UI event.
+    // However, for this architecture, we simply inform the user:
+    if (!window.isSystemProcessing) { 
+      addMessage('Bot', '⚠️ Please use the checkboxes and click <strong>Confirm Selection</strong> to continue.');
+      return;
+    }
+  }
+
+  // 2. If it's a standard button question, validate against options
+  if (currentQuestion.type !== 'multi_select') {
+    const validOptions = currentQuestion.options.map(opt => opt.toLowerCase().trim());
+    if (!validOptions.includes(answer.toLowerCase().trim())) {
+      addMessage('Bot', '⚠️ Please select one of the options above to continue the assessment.');
+      return;
+    }
+  }
+  // -------------------------------
+
   console.log(`📝 Q${state.currentIndex + 1}: "${answer}"`);
   
-  const currentQuestion = state.questions[state.currentIndex];
   if (currentQuestion.type !== 'multi_select') {
     addMessage('User', answer, true);
   } else {
@@ -331,7 +396,6 @@ function processAnswer(answer) {
     finishDiagnosis();
   }
 }
-
 async function finishDiagnosis() {
   showTyping('Analyzing your responses...');
   
@@ -556,45 +620,100 @@ function displayResult(result, diseaseName) {
           </div>
         ` : ''}
 
-${result.status === "consult" ? `
-  <div style="
-    background: #ffffff;
-    border-left: 5px solid #ef4444;
-    border-radius: 12px;
+        ${result.status === "consult" ? `
+  <div class="emergency-alert-card" style="
+    background: #FEF2F2;
+    border: 2px solid #EF4444;
+    border-radius: 16px;
     padding: 24px;
-    margin: 20px 0;
-    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.08);
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 25px 0;
+    box-shadow: 0 10px 30px rgba(239, 68, 68, 0.15);
+    animation: alertPulse 2s infinite;
   ">
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5v14M7 12h10"/>
-      </svg>
-      <strong style="color: #b91c1c; font-size: 16px; letter-spacing: 0.3px;">Consultation Recommended</strong>
+    <div style="display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px;">
+      <div style="
+        background: #EF4444;
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+      ">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+      </div>
+      <div>
+        <h3 style="margin: 0; color: #991B1B; font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+          Urgent: Seek Medical Help
+        </h3>
+        <p style="margin: 4px 0 0 0; color: #B91C1C; font-size: 14px; opacity: 0.9;">
+          Professional consultation is required based on your reported symptoms.
+        </p>
+      </div>
     </div>
 
-    <div style="color: #374151; font-size: 14px; line-height: 1.6; margin-bottom: 0;">
-      <p style="margin: 0;">${result.message}</p>
-      
-      ${result.immediate_flags?.length ? `
-        <div style="
-          margin-top: 16px; 
-          padding: 16px; 
-          background: #fff5f5; 
-          border-radius: 8px; 
-          border: 1px solid #fee2e2;
-        ">
-          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-            </svg>
-            <strong style="color: #991b1b; font-size: 13px;">Immediate Warning Signs:</strong>
-          </div>
-          <ul style="margin: 0; padding-left: 18px; color: #b91c1c; font-size: 13px; font-weight: 500;">
-            ${result.immediate_flags.map(flag => `<li style="margin-bottom: 4px;">${flag}</li>`).join('')}
-          </ul>
+    <div style="
+      background: rgba(255, 255, 255, 0.6);
+      padding: 16px;
+      border-radius: 10px;
+      color: #374151;
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      border: 1px solid rgba(239, 68, 68, 0.1);
+    ">
+      ${result.message}
+    </div>
+
+    ${result.immediate_flags?.length ? `
+      <div style="margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+          <span style="color: #DC2626; font-weight: 700; font-size: 13px; text-transform: uppercase;"></span>
         </div>
-      ` : ''}
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
+          ${result.immediate_flags.map(flag => `
+            <div style="
+              background: white;
+              border: 2px solid #EF4444;
+              padding: 10px 14px;
+              border-radius: 6px;
+              font-size: 13px;
+              font-weight: 600;
+              color: #991B1B;
+              box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            ">
+              ${flag}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
+
+    <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+      <a href="https://www.google.com/maps/search/hospitals+near+me" target="_blank" style="
+        flex: 1;
+        min-width: 160px;
+        background: white;
+        color: #DC2626;
+        text-decoration: none;
+        text-align: center;
+        padding: 14px;
+        border-radius: 12px;
+        font-weight: 700;
+        border: 2px solid #DC2626;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      ">
+        <span>📍 Find Nearby Hospital</span>
+      </a>
     </div>
   </div>
 ` : ''}
@@ -671,6 +790,11 @@ function resetState() {
   state.currentIndex = 0;
   state.answers = [];
   state.multiSelectAnswers = [];
+  
+  // Restore the original input behavior
+  if (dom.userInput) {
+    dom.userInput.placeholder = "Describe your symptoms...";
+  }
 }
 
 function formatName(str) {
